@@ -15,6 +15,6 @@ resource "openstack_compute_instance_v2" "basic" {
   }
 
   network {
-    uuid = "fb725b33-76f0-4bc6-8b95-8582cb3b3dd1"
+    uuid = openstack_networking_network_v2.ozel_ag.id
   }
 }
