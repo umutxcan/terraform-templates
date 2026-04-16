@@ -1,12 +1,12 @@
 resource "openstack_compute_instance_v2" "basic" {
   name            = "terraform-deneme"
-  flavor_id       = "73dee111-ff30-4837-b3c1-9284c422485e"
+  flavor_id       = var.standard_flavor_id
   key_pair        = "deneme"
   security_groups = ["ahmet"]
 
   # BURASI YENİ: Makineyi imajdan değil, bir diskten (volume) başlatıyoruz
   block_device {
-    uuid                  = "d4086da9-366a-4482-a93c-d18e065fcd8b" 
+    uuid                  = var.ubuntu_image_id 
     source_type           = "image"
     destination_type      = "volume"
     boot_index            = 0
