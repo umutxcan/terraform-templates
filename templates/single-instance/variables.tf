@@ -23,9 +23,11 @@ variable "standard_flavor_id" {
 variable "external_network_id" {
   type        = string
   description = "vMind uzerindeki External (Public) Network UUID degeri"
+  sensitive = true
 }
 
 variable "vmind_tenant_id" {
   type        = string
   description = "vMind Proje (Tenant) ID'si"
+  sensitive = true
 }

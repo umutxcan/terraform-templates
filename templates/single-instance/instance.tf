@@ -7,11 +7,11 @@ resource "openstack_networking_floatingip_v2" "fip_1" {
 resource "openstack_compute_instance_v2" "basic" {
   name      = "terraform-deneme"
   flavor_id = var.standard_flavor_id
-  key_pair  = "deneme"
+  key_pair  = openstack_compute_keypair_v2.terraform_key.name
 
   # ÖNEMLİ: networking_secgroup referansı kullanıyoruz
   security_groups = [openstack_compute_secgroup_v2.basic_sg.name]
-
+  depends_on = [openstack_networking_subnet_v2.ozel_subnet]
   block_device {
     uuid                  = var.ubuntu_image_id
     source_type           = "image"
