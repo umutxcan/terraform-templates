@@ -1,14 +1,28 @@
-# 1. Sanal Ağ (Network) - Bu senin ana boru hattın
-resource "openstack_networking_network_v2" "ozel_ag" {
-  name           = "canu-terraform-network"
-  admin_state_up = "true"
+
+# Kullanıcının verdiği ID'yi sistemde bulup doğrular
+data "openstack_networking_network_v2" "public_network" {
+  network_id = var.external_network_id
 }
 
-# 2. Alt Ağ (Subnet) - IP'lerin dağıtıldığı yer (192.168.10.X gibi)
+# Senin özel LAN ağın
+resource "openstack_networking_network_v2" "ozel_ag" {
+  name = "user-network"
+}
+
+# Subnet ayarların
 resource "openstack_networking_subnet_v2" "ozel_subnet" {
-  name            = "canu-subnet"
-  network_id      = openstack_networking_network_v2.ozel_ag.id # Üstteki ağa bağladık
-  cidr            = "192.168.10.0/24"                          # IP aralığın
-  ip_version      = 4
-  dns_nameservers = ["8.8.8.8", "1.1.1.1"]                     # İnternete çıkış için DNS
+  network_id = openstack_networking_network_v2.ozel_ag.id
+  cidr       = "192.168.10.0/24"
+}
+
+# Router (Dış dünyaya kullanıcının ID'si ile bağlanır)
+resource "openstack_networking_router_v2" "ozel_router" {
+  name                = "user-router"
+  admin_state_up      = true
+  external_network_id = data.openstack_networking_network_v2.public_network.id
+}
+
+resource "openstack_networking_router_interface_v2" "router_interface" {
+  router_id = openstack_networking_router_v2.ozel_router.id
+  subnet_id = openstack_networking_subnet_v2.ozel_subnet.id
 }

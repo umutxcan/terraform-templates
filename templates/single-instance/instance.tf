@@ -1,20 +1,34 @@
-resource "openstack_compute_instance_v2" "basic" {
-  name            = "terraform-deneme"
-  flavor_id       = var.standard_flavor_id
-  key_pair        = "deneme"
-  security_groups = ["ahmet"]
+# 1. Havuzdan bir adet boş Floating IP alıyoruz
+resource "openstack_networking_floatingip_v2" "fip_1" {
+  pool = data.openstack_networking_network_v2.public_network.name
+}
 
-  # BURASI YENİ: Makineyi imajdan değil, bir diskten (volume) başlatıyoruz
+# 2. Sunucu Oluşturma
+resource "openstack_compute_instance_v2" "basic" {
+  name      = "terraform-deneme"
+  flavor_id = var.standard_flavor_id
+  key_pair  = "deneme"
+
+  # ÖNEMLİ: networking_secgroup referansı kullanıyoruz
+  security_groups = [openstack_compute_secgroup_v2.basic_sg.name]
+
   block_device {
-    uuid                  = var.ubuntu_image_id 
+    uuid                  = var.ubuntu_image_id
     source_type           = "image"
     destination_type      = "volume"
     boot_index            = 0
     delete_on_termination = true
-    volume_size           = 20 # Buraya GB cinsinden disk boyutunu yaz (Örn: 20 veya 50)
+    volume_size           = 20
   }
 
   network {
+    # network.tf içindeki ağın ID'sini çekiyoruz
     uuid = openstack_networking_network_v2.ozel_ag.id
   }
+}
+
+# 3. Floating IP'yi Sunucuya Mühürleme
+resource "openstack_compute_floatingip_associate_v2" "fip_bagla" {
+  floating_ip = openstack_networking_floatingip_v2.fip_1.address
+  instance_id = openstack_compute_instance_v2.basic.id
 }

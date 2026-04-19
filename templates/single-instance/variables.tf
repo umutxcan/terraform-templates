@@ -20,3 +20,7 @@ variable "standard_flavor_id" {
   type        = string
   description = "VM spec flavor ID"
 }
+variable "external_network_id" {
+  type        = string
+  description = "vMind uzerindeki External (Public) Network UUID degeri"
+}
