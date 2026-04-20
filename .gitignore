@@ -4,9 +4,13 @@
 *.tfstate
 *.tfstate.*
 
-# SENİN ÖZEL ŞİFRELERİN (En önemlisi)
+# SENİN ÖZEL ŞİFRELERİN
 terraform.tfvars
 *.tfvars
+
+# ANAHTAR DOSYALARI (Burası hayat kurtarır)
+*.pem
+*.key
 
 # Log dosyaları
 *.log
