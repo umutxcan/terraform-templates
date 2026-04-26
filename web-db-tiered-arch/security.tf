@@ -1,4 +1,4 @@
-k# 1. BASTION SECURITY GROUP (Dış Kapı)
+# 1. BASTION SECURITY GROUP (Dış Kapı)
 resource "openstack_compute_secgroup_v2" "bastion_sg" {
   name        = "bastion-sg"
   description = "Sadece benim IP'mden SSH ve ICMP kabul eder"
