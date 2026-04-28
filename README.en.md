@@ -94,4 +94,4 @@ Contributions are welcome via pull requests.
 
 ## License
 
-Add your preferred license (e.g., MIT, Apache-2.0).
+This Document is licenced under name the of Umut Can.
