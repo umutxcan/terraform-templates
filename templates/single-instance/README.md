@@ -48,26 +48,55 @@ terraform version
 
 ---
 
-## SSH Agent Kullanımı (Önerilir)
+## Sunucuya Erişim (SSH) ve Anahtar Yönetimi (Önemli)
 
-Her seferinde `.pem` dosyası belirtmemek ve SSH erişimini kolaylaştırmak için **SSH Agent** kullanabilirsiniz.  
-Bu özellikle bastion/instance geçişlerinde süreci hızlandırır.
+> Not: Şablon `.pem` anahtarı üretiyorsa dosya proje dizininde oluşur.  
+> (Şablona göre değişebilir.)
 
-### Linux / macOS
+### 1) Anahtar İzinlerini Ayarlayın
+
+**Linux / macOS:**
+```bash
+chmod 600 vmind-anahtar.pem
+```
+
+**Windows (PowerShell):**
+```powershell
+# Dosya izinlerini sadece mevcut kullanıcıya özel hale getirin
+icacls.exe vmind-anahtar.pem /reset
+icacls.exe vmind-anahtar.pem /inheritance:r
+icacls.exe vmind-anahtar.pem /grant:r "$($env:username):(R)"
+```
+
+### 2) SSH Agent (Önerilir)
+
+SSH Agent kullanarak her seferinde `-i key.pem` yazmadan bağlanabilirsiniz.
+
+**Linux / macOS**
 ```bash
 eval "$(ssh-agent -s)"
-ssh-add /path/to/your-key.pem
+ssh-add /path/to/vmind-anahtar.pem
 ssh-add -l
 ```
 
-### Windows (PowerShell)
+**Windows (PowerShell)**
 ```powershell
 Start-Service ssh-agent
-ssh-add C:\path\to\your-key.pem
+ssh-add C:\path\to\vmind-anahtar.pem
 ssh-add -l
 ```
 
-> Not: Anahtar ekledikten sonra SSH bağlantılarında tekrar `-i key.pem` yazmanız gerekmez.
+### 3) SSH ile Bağlanın
+```bash
+ssh ubuntu@<PUBLIC_IP>
+```
+
+> Eğer SSH Agent kullanmıyorsanız:
+```bash
+ssh -i vmind-anahtar.pem ubuntu@<PUBLIC_IP>
+```
+
+`<PUBLIC_IP>` değerini Terraform output’larından veya cloud konsoldan alabilirsiniz.
 
 ---
 
