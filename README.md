@@ -1,9 +1,6 @@
 # Terraform Templates
 
-This repository contains Terraform templates in two languages:
 
-- 🇬🇧 English: [README.en.md](./README.en.md)
-- 🇹🇷 Türkçe: [README.tr.md](./README.tr.md)
 
 ---
 
