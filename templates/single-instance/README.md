@@ -57,15 +57,15 @@ terraform version
 
 **Linux / macOS:**
 ```bash
-chmod 600 vmind-anahtar.pem
+chmod 600 <KEY_NAME>.pem
 ```
 
 **Windows (PowerShell):**
 ```powershell
 # Dosya izinlerini sadece mevcut kullanıcıya özel hale getirin
-icacls.exe vmind-anahtar.pem /reset
-icacls.exe vmind-anahtar.pem /inheritance:r
-icacls.exe vmind-anahtar.pem /grant:r "$($env:username):(R)"
+icacls.exe <KEY_NAME>.pem /reset
+icacls.exe <KEY_NAME>.pem /inheritance:r
+icacls.exe <KEY_NAME>.pem /grant:r "$($env:username):(R)"
 ```
 
 ### 2) SSH Agent (Önerilir)
@@ -75,14 +75,14 @@ SSH Agent kullanarak her seferinde `-i key.pem` yazmadan bağlanabilirsiniz.
 **Linux / macOS**
 ```bash
 eval "$(ssh-agent -s)"
-ssh-add /path/to/vmind-anahtar.pem
+ssh-add /path/to/<KEY_NAME>.pem
 ssh-add -l
 ```
 
 **Windows (PowerShell)**
 ```powershell
 Start-Service ssh-agent
-ssh-add C:\path\to\vmind-anahtar.pem
+ssh-add C:\path\to\<KEY_NAME>.pem
 ssh-add -l
 ```
 
@@ -93,10 +93,12 @@ ssh ubuntu@<PUBLIC_IP>
 
 > Eğer SSH Agent kullanmıyorsanız:
 ```bash
-ssh -i vmind-anahtar.pem ubuntu@<PUBLIC_IP>
+ssh -i <KEY_NAME>.pem ubuntu@<PUBLIC_IP>
 ```
 
 `<PUBLIC_IP>` değerini Terraform output’larından veya cloud konsoldan alabilirsiniz.
+
+> Not: `<KEY_NAME>.pem` yerine kendi anahtar dosya adınızı yazın.
 
 ---
 
