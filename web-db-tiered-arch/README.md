@@ -57,15 +57,15 @@ terraform version
 
 **Linux / macOS:**
 ```bash
-chmod 600 vmind-anahtar.pem
+chmod 600 <KEY_NAME>.pem
 ```
 
 **Windows (PowerShell):**
 ```powershell
 # Dosya izinlerini sadece mevcut kullanıcıya özel hale getirin
-icacls.exe vmind-anahtar.pem /reset
-icacls.exe vmind-anahtar.pem /inheritance:r
-icacls.exe vmind-anahtar.pem /grant:r "$($env:username):(R)"
+icacls.exe <KEY_NAME>.pem /reset
+icacls.exe <KEY_NAME>.pem /inheritance:r
+icacls.exe <KEY_NAME>.pem /grant:r "$($env:username):(R)"
 ```
 
 ### 2) SSH Agent (Önerilir)
@@ -76,14 +76,14 @@ Bu özellikle **bastion üzerinden DB katmanına geçiş** senaryolarında süre
 **Linux / macOS**
 ```bash
 eval "$(ssh-agent -s)"
-ssh-add /path/to/vmind-anahtar.pem
+ssh-add /path/to/<KEY_NAME>.pem
 ssh-add -l
 ```
 
 **Windows (PowerShell)**
 ```powershell
 Start-Service ssh-agent
-ssh-add C:\path\to\vmind-anahtar.pem
+ssh-add C:\path\to\<KEY_NAME>.pem
 ssh-add -l
 ```
 
@@ -101,10 +101,12 @@ ssh ubuntu@<DB_PRIVATE_IP>
 
 > SSH Agent kullanmıyorsanız bastion bağlantısında:
 ```bash
-ssh -i vmind-anahtar.pem ubuntu@<BASTION_PUBLIC_IP>
+ssh -i <KEY_NAME>.pem ubuntu@<BASTION_PUBLIC_IP>
 ```
 
 > DB geçişinde de aynı anahtar kullanılır.
+
+> Not: `<KEY_NAME>.pem` yerine kendi anahtar dosya adınızı yazın.
 
 ---
 
