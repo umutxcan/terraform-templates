@@ -87,7 +87,20 @@ ssh-add C:\path\to\<KEY_NAME>.pem
 ssh-add -l
 ```
 
-### 3) Bastion Üzerinden DB Sunucusuna Geçiş
+### 3) (Opsiyonel) Anahtar Dosyasını Sunucudan Bilgisayarına Çekme
+
+> Bu komutu **kendi bilgisayarınızın terminalinde (PowerShell/CMD)** çalıştırın.
+
+```bash
+scp -i "<MEVCUT_BAGLANTI_ANAHTARI>.pem" "ubuntu@<SUNUCU_IP_ADRESI>:/yol/to/proje/<YENI_ANAHTAR>.pem" "C:\Keys\"
+```
+
+**Örnek:**
+```bash
+scp -i "C:\Keys\deneme12345.pem" "ubuntu@192.168.100.X:/home/ubuntu/vmind-terraform-projesi/vmind-Deneme-anahtar.pem" "C:\Dosya-Anahtar\"
+```
+
+### 4) Bastion Üzerinden DB Sunucusuna Geçiş
 
 1) Önce bastion’a bağlanın:
 ```bash
