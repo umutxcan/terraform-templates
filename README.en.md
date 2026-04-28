@@ -94,4 +94,4 @@ Contributions are welcome via pull requests.
 
 ## License
 
-This Document is licenced under name the of Umut Can.
+"Copyright © 2026 Umut Can. All rights reserved."
