@@ -94,4 +94,4 @@ Pull request ile katkılar memnuniyetle karşılanır.
 
 ## Lisans
 
-Tercih ettiğiniz lisansı ekleyin (örn. MIT, Apache-2.0).
+Umut Can tarafından Lisanslanmıştır.
