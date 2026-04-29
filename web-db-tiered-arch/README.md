@@ -109,7 +109,7 @@ ssh ubuntu@<BASTION_PUBLIC_IP>
 
 2) Bastion içinden DB instance’a geçin:
 ```bash
-ssh ubuntu@<DB_PRIVATE_IP>
+ssh -A ubuntu@<DB_PRIVATE_IP>
 ```
 
 > SSH Agent kullanmıyorsanız bastion bağlantısında:
