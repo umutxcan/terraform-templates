@@ -14,6 +14,6 @@ resource "openstack_compute_keypair_v2" "terraform_key" {
 # 3. Anahtarın PRIVATE (.pem) kısmını bilgisayarına kaydeder
 resource "local_file" "private_key_save" {
   content         = tls_private_key.vmind_key.private_key_pem
-  filename        = "vmind-anahtar.pem" # Artık bu ismi kullanacağız
+  filename        = "vmind5-anahtar.pem" # Artık bu ismi kullanacağız
   file_permission = "0600" # Linux için otomatik ayar
 }
