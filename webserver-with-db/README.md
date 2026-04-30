@@ -1,7 +1,7 @@
 # Templates Rehberi (TR) — webserver-with-db
 
 ## Overview
-Bu doküman, **aynı network içinde** çalışan **web + database katmanlarını** ayrı subnet’lerde kuran *web-db-tiered-arch* şablonunun adımlarını açıklar.
+Bu doküman, **aynı network içinde** çalışan **web + database katmanlarını** ayrı subnet’lerde kuran *webserver-with-db* şablonunun adımlarını açıklar.
 
 Bu şablon özellikle şu durumlar için uygundur:
 
