@@ -1,6 +1,6 @@
 # FlavorId
 
-This is the list for needed flavor **name** and **id**.
+  This list contains the **name** and **id** of the flavor IDs.
 
 ```json
 {
