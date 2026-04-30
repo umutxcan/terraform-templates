@@ -3,7 +3,7 @@ data "openstack_networking_network_v2" "public_network" {
   network_id = var.external_network_id
 }
 
-# 2. Private network (parent for all subnets)
+# 2. Private network 
 resource "openstack_networking_network_v2" "ozel_ag" {
   name = "user-network"
 }
