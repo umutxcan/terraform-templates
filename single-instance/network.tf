@@ -3,7 +3,7 @@ data "openstack_networking_network_v2" "public_network" {
   network_id = var.external_network_id
 }
 
-# 2. Private network (just a container, no CIDR)
+# 2. Private network 
 resource "openstack_networking_network_v2" "ozel_ag" {
   name = "user-network"
 }
@@ -17,7 +17,7 @@ resource "openstack_networking_subnet_v2" "ozel_subnet" {
   dns_nameservers = ["8.8.8.8", "1.1.1.1"] # Required for outbound internet access
 }
 
-# 4. Router (pushes internal traffic to the outside)
+# 4. Router 
 resource "openstack_networking_router_v2" "ozel_router" {
   name                = "user-router"
   admin_state_up      = true
