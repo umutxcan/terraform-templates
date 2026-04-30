@@ -50,7 +50,7 @@ terraform version
 
 ## Sunucuya Erişim (SSH) ve Anahtar Yönetimi (Önemli)
 
-> Not: ��ablon `.pem` anahtarı üretiyorsa dosya proje dizininde oluşur.  
+> Not: Şablon `.pem` anahtarı üretiyorsa dosya proje dizininde oluşur.  
 > (Şablona göre değişebilir.)
 
 ### 1) Anahtar İzinlerini Ayarlayın
