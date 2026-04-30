@@ -1,4 +1,4 @@
-# Templates Rehberi (TR) — web-db-tiered-arch
+# Templates Rehberi (TR) — webserver-with-db
 
 ## Overview
 Bu doküman, **aynı network içinde** çalışan **web + database katmanlarını** ayrı subnet’lerde kuran *web-db-tiered-arch* şablonunun adımlarını açıklar.
@@ -125,7 +125,7 @@ ssh -i <KEY_NAME>.pem ubuntu@<BASTION_PUBLIC_IP>
 
 ## İçerik
 
-### `web-db-tiered-arch`
+### `webserver-with-db`
 Web ve DB instance’larının aynı VPC içinde fakat farklı subnet’lerde çalıştığı mimari örneği.
 
 #### Dosyalar
@@ -177,7 +177,7 @@ vmind_tenant_id     = "YOUR_TENANT_ID"
 ## Kullanım
 
 ```bash
-cd web-db-tiered-arch
+cd webserver-with-db
 terraform init
 terraform validate
 terraform plan -var-file="terraform.tfvars"
