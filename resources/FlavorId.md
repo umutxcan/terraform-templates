@@ -1,4 +1,4 @@
-# Resources
+# FlavorId
 
 This is the list for needed flavor **name** and **id**.
 
