@@ -1,4 +1,4 @@
-# 1. BASTION SECURITY GROUP (Front Door)
+# 1. BASTION SECURITY GROUP 
 resource "openstack_compute_secgroup_v2" "bastion_sg" {
   name        = "bastion-sg"
   description = "Allows SSH and ICMP only from my IP"
@@ -20,7 +20,7 @@ resource "openstack_compute_secgroup_v2" "bastion_sg" {
   }
 }
 
-# 2. DATABASE SECURITY GROUP (Inner Room)
+# 2. DATABASE SECURITY GROUP 
 resource "openstack_compute_secgroup_v2" "db_sg" {
   name        = "db-sg"
   description = "Allows access only from the internal network (Bastion and WP)"
