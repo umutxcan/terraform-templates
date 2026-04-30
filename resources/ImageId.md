@@ -1,6 +1,6 @@
 # ImageId
 
-Aşağıda örnek bir `images` listesi yer alır. Liste yalnızca **id** ve **name** alanlarını içerir.
+  This list contains the **name** and **id** of the image IDs
 
 ```json
 {
