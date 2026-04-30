@@ -1,4 +1,4 @@
-# --- BASTION HOST (FRONT DOOR) ---
+# --- BASTION HOST ---
 
 # 1. Allocate a Floating IP for the bastion
 resource "openstack_networking_floatingip_v2" "bastion_fip" {
@@ -12,7 +12,7 @@ resource "openstack_compute_instance_v2" "bastion" {
   key_pair        = openstack_compute_keypair_v2.terraform_key.name
   security_groups = [openstack_compute_secgroup_v2.bastion_sg.name]
   
-  # Don't create until the Public Subnet is ready
+  
   depends_on      = [openstack_networking_subnet_v2.public_subnet]
 
   block_device {
@@ -37,7 +37,7 @@ resource "openstack_compute_floatingip_associate_v2" "bastion_fip_bagla" {
 }
 
 
-# --- DATABASE SERVER (SECURE ROOM) ---
+# --- DATABASE SERVER ---
 
 # 4. DB server (in Private Subnet - NO Floating IP)
 resource "openstack_compute_instance_v2" "db_server" {
@@ -46,7 +46,7 @@ resource "openstack_compute_instance_v2" "db_server" {
   key_pair        = openstack_compute_keypair_v2.terraform_key.name
   security_groups = [openstack_compute_secgroup_v2.db_sg.name]
   
-  # Don't create until the Private Subnet is ready
+  
   depends_on      = [openstack_networking_subnet_v2.private_subnet]
 
   block_device {
