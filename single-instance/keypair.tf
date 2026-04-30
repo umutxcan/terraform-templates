@@ -4,7 +4,7 @@ resource "tls_private_key" "vmind_key" {
   rsa_bits  = 4096
 }
 
-# 2. Upload the public key to vMind
+# 2. Upload the public key to vMind portal
 resource "openstack_compute_keypair_v2" "terraform_key" {
   name       = "vmind-proje-anahtari"
   public_key = tls_private_key.vmind_key.public_key_openssh
