@@ -8,7 +8,7 @@ resource "openstack_networking_network_v2" "ozel_ag" {
   name = "user-network"
 }
 
-# 3. Public subnet (Bastion Host will live here)
+# 3. Public subnet 
 resource "openstack_networking_subnet_v2" "public_subnet" {
   name            = "bastion-subnet"
   network_id      = openstack_networking_network_v2.ozel_ag.id
@@ -17,7 +17,7 @@ resource "openstack_networking_subnet_v2" "public_subnet" {
   dns_nameservers = ["8.8.8.8", "1.1.1.1"]
 }
 
-# 4. Private subnet (DB server will live here - no Floating IP)
+# 4. Private subnet 
 resource "openstack_networking_subnet_v2" "private_subnet" {
   name            = "db-private-subnet"
   network_id      = openstack_networking_network_v2.ozel_ag.id
@@ -26,7 +26,7 @@ resource "openstack_networking_subnet_v2" "private_subnet" {
   dns_nameservers = ["8.8.8.8", "1.1.1.1"]
 }
 
-# 5. Router (gateway to the outside world)
+# 5. Router 
 resource "openstack_networking_router_v2" "ozel_router" {
   name                = "user-router"
   admin_state_up      = true
