@@ -1,6 +1,6 @@
 resource "openstack_compute_secgroup_v2" "basic_sg" {
   name        = "basic-ssh-sg"
-  description = "Temel SSH ve ICMP erisim grubu"
+  description = "Basic SSH and ICMP access group"
 
   rule {
     from_port   = 22

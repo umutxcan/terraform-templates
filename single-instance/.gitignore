@@ -1,12 +1,12 @@
-# Terraform'un kendi dosyaları
+# Terraform's own files
 .terraform/
 .terraform.lock.hcl
 *.tfstate
 *.tfstate.*
 
-# SENİN ÖZEL ŞİFRELERİN (En önemlisi)
+# YOUR PRIVATE SECRETS (Most important)
 terraform.tfvars
 *.tfvars
 
-# Log dosyaları
+# Log files
 *.log
