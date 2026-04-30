@@ -1,6 +1,6 @@
-# Kaynaklar
+# Resources
 
-Aşağıda örnek bir `flavors` listesi yer alır. Liste yalnızca **id** ve **name** alanlarını içerir.
+This is the list for needed flavor **name** and **id**.
 
 ```json
 {
