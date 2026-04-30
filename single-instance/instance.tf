@@ -9,7 +9,7 @@ resource "openstack_compute_instance_v2" "basic" {
   flavor_id = var.standard_flavor_id
   key_pair  = openstack_compute_keypair_v2.terraform_key.name
 
-  # IMPORTANT: Use networking_secgroup reference
+  # Use networking_secgroup reference
   security_groups = [openstack_compute_secgroup_v2.basic_sg.name]
   depends_on = [openstack_networking_subnet_v2.ozel_subnet]
   block_device {
