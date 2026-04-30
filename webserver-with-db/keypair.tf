@@ -4,7 +4,7 @@ resource "tls_private_key" "vmind_key" {
   rsa_bits  = 4096
 }
 
-# 2. Upload the PUBLIC key to vMind
+# 2. Upload the PUBLIC key to vMind portal
 # This lets vMind inject the key into the created servers
 resource "openstack_compute_keypair_v2" "terraform_key" {
   name       = "vmind-proje-anahtari"
