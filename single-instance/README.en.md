@@ -168,7 +168,7 @@ vmind_tenant_id     = "YOUR_TENANT_ID"
 ## Usage
 
 ```bash
-cd templates/single-instance
+cd single-instance
 terraform init
 terraform validate
 terraform plan -var-file="terraform.tfvars"
