@@ -13,9 +13,4 @@ It includes both:
 
 > **Detailed, step-by-step guides live inside each template folder.**
 
-### Template Guides (Main Documentation)
-
-- **Single Instance (Basic)**: [templates/single-instance/README.md](./templates/single-instance/README.md)
-- **Web + DB Tiered (Complex)**: [web-db-tiered-arch/README.md](./web-db-tiered-arch/README.md)
-
 Choose your preferred language guide above for overall repository details, and use the template guides for actual deployment steps.
