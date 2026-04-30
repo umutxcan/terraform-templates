@@ -1,18 +1,18 @@
-# --- BASTION HOST (DIŞ KAPI) ---
+# --- BASTION HOST (FRONT DOOR) ---
 
-# 1. Bastion için Floating IP alıyoruz
+# 1. Allocate a Floating IP for the bastion
 resource "openstack_networking_floatingip_v2" "bastion_fip" {
   pool = data.openstack_networking_network_v2.public_network.name
 }
 
-# 2. Bastion Sunucusu (Public Subnet'te)
+# 2. Bastion server (in the Public Subnet)
 resource "openstack_compute_instance_v2" "bastion" {
   name            = "bastion-host"
   flavor_id       = var.standard_flavor_id
   key_pair        = openstack_compute_keypair_v2.terraform_key.name
   security_groups = [openstack_compute_secgroup_v2.bastion_sg.name]
   
-  # Public Subnet hazır olmadan kurulmasın
+  # Don't create until the Public Subnet is ready
   depends_on      = [openstack_networking_subnet_v2.public_subnet]
 
   block_device {
@@ -26,27 +26,27 @@ resource "openstack_compute_instance_v2" "bastion" {
 
   network {
     uuid = openstack_networking_network_v2.ozel_ag.id
-    # İstersen burada sabit iç IP de verebilirsin
+    # You can assign a fixed internal IP here if you want
   }
 }
 
-# 3. Floating IP'yi sadece Bastion'a bağlıyoruz
+# 3. Attach the Floating IP only to the Bastion
 resource "openstack_compute_floatingip_associate_v2" "bastion_fip_bagla" {
   floating_ip = openstack_networking_floatingip_v2.bastion_fip.address
   instance_id = openstack_compute_instance_v2.bastion.id
 }
 
 
-# --- DATABASE SUNUCUSU (GÜVENLİ ODA) ---
+# --- DATABASE SERVER (SECURE ROOM) ---
 
-# 4. DB Sunucusu (Private Subnet'te - Floating IP YOK)
+# 4. DB server (in Private Subnet - NO Floating IP)
 resource "openstack_compute_instance_v2" "db_server" {
   name            = "db-server"
-  flavor_id       = var.standard_flavor_id # DB için gerekirse flavor değişebilir
+  flavor_id       = var.standard_flavor_id # Flavor can be different for DB if needed
   key_pair        = openstack_compute_keypair_v2.terraform_key.name
   security_groups = [openstack_compute_secgroup_v2.db_sg.name]
   
-  # Private Subnet hazır olmadan kurulmasın
+  # Don't create until the Private Subnet is ready
   depends_on      = [openstack_networking_subnet_v2.private_subnet]
 
   block_device {
@@ -55,11 +55,11 @@ resource "openstack_compute_instance_v2" "db_server" {
     destination_type      = "volume"
     boot_index            = 0
     delete_on_termination = true
-    volume_size           = 40 # DB için genelde daha fazla alan istenir
+    volume_size           = 40 # DB usually needs more disk space
   }
 
   network {
     uuid = openstack_networking_network_v2.ozel_ag.id
-    # Sunucuyu private subnet IP bloğundan bir yere oturtur
+    # Places the server in the private subnet IP range
   }
 }

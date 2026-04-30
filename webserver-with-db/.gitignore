@@ -1,12 +1,12 @@
-# Terraform'un çalışma dosyaları
+# Terraform working files
 .terraform/
 *.tfstate
 *.tfstate.backup
 .terraform.lock.hcl
 
-# ŞİFRELER VE ÖZEL ID'LER (En kritiği bu)
+# SECRETS AND PRIVATE IDs (Most critical)
 *.tfvars
 terraform.tfvars
 
-# Log dosyaları
+# Log files
 *.log

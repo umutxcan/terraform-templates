@@ -1,9 +1,9 @@
-# 1. BASTION SECURITY GROUP (Dış Kapı)
+# 1. BASTION SECURITY GROUP (Front Door)
 resource "openstack_compute_secgroup_v2" "bastion_sg" {
   name        = "bastion-sg"
-  description = "Sadece benim IP'mden SSH ve ICMP kabul eder"
+  description = "Allows SSH and ICMP only from my IP"
 
-  # SSH: Sadece sen girebil diye (Buraya kendi IP'ni yazman daha güvenli olur)
+  # SSH: Only allow your IP (safer if you restrict it)
   rule {
     from_port   = 22
     to_port     = 22
@@ -11,7 +11,7 @@ resource "openstack_compute_secgroup_v2" "bastion_sg" {
     cidr        = "0.0.0.0/0" 
   }
 
-  # ICMP: Ping testi için
+  # ICMP: For ping tests
   rule {
     from_port   = -1
     to_port     = -1
@@ -20,12 +20,12 @@ resource "openstack_compute_secgroup_v2" "bastion_sg" {
   }
 }
 
-# 2. DATABASE SECURITY GROUP (İç Oda)
+# 2. DATABASE SECURITY GROUP (Inner Room)
 resource "openstack_compute_secgroup_v2" "db_sg" {
   name        = "db-sg"
-  description = "Sadece iç ağdan (Bastion ve WP) erişim kabul eder"
+  description = "Allows access only from the internal network (Bastion and WP)"
 
-  # SSH: SADECE Bastion'ın olduğu subnet'ten (192.168.10.x) gelene izin ver
+  # SSH: ONLY from Bastion subnet (192.168.10.x)
   rule {
     from_port   = 22
     to_port     = 22
@@ -33,7 +33,7 @@ resource "openstack_compute_secgroup_v2" "db_sg" {
     cidr        = "192.168.10.0/24" 
   }
 
-  # MySQL / MariaDB (WordPress varsayılanı)
+  # MySQL / MariaDB (WordPress default)
   rule {
     from_port   = 3306
     to_port     = 3306
@@ -49,7 +49,7 @@ resource "openstack_compute_secgroup_v2" "db_sg" {
     cidr        = "192.168.10.0/24"
   }
 
-  # İç ağda makineler birbirine ping atabilsin
+  # Allow ping within internal network
   rule {
     from_port   = -1
     to_port     = -1
