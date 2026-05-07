@@ -73,6 +73,19 @@ resource "openstack_compute_instance_v2" "web_servers" {
     port = openstack_networking_port_v2.web_ports[count.index].id
   }
 
+  user_data = <<-EOF
+              #!/bin/bash
+              apt-get update -y
+              apt-get install -y nginx
+              systemctl start nginx
+              systemctl enable nginx
+              echo "<h1>Tebrikler! Web Sunucusu ${count.index + 1} basariyla calisiyor.</h1>" > /var/www/html/index.html
+              EOF
+
+
+
+
+
   block_device {
     uuid                  = var.ubuntu_image_id
     source_type           = "image"

@@ -67,12 +67,10 @@ resource "openstack_lb_pool_v2" "web_pool" {
 resource "openstack_lb_monitor_v2" "web_health_check" {
   name           = "web-health-check"
   pool_id        = openstack_lb_pool_v2.web_pool.id # Havuza buradan bağlanıyor
-  type           = "HTTP"
+  type           = "TCP"
   delay          = 5
   timeout        = 3
   max_retries    = 3
-  url_path       = "/"
-  expected_codes = "200"
 }
 
 # ==========================================
