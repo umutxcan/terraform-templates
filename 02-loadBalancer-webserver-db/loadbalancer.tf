@@ -4,7 +4,7 @@
 
 # The main Load Balancer instance
 resource "openstack_lb_loadbalancer_v2" "web_lb" {
-  name          = "vmind-web-lb-1905"
+  name          = "vmind-web-lb-26"
   vip_network_id = openstack_networking_network_v2.main_network.id
   vip_subnet_id = openstack_networking_subnet_v2.public_subnet.id 
 
@@ -65,12 +65,12 @@ resource "openstack_lb_pool_v2" "web_pool" {
 # ==========================================
 
 resource "openstack_lb_monitor_v2" "web_health_check" {
-  name           = "web-health-check"
-  pool_id        = openstack_lb_pool_v2.web_pool.id # Havuza buradan bağlanıyor
-  type           = "TCP"
-  delay          = 5
-  timeout        = 3
-  max_retries    = 3
+  name        = "web-health-check"
+  pool_id     = openstack_lb_pool_v2.web_pool.id 
+  type        = "TCP"
+  delay       = 5
+  timeout     = 3
+  max_retries = 3
 }
 
 # ==========================================

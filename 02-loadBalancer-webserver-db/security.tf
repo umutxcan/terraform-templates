@@ -62,7 +62,19 @@ resource "openstack_networking_secgroup_rule_v2" "web_from_lb" {
   protocol          = "tcp"
   port_range_min    = 80
   port_range_max    = 80
-  remote_group_id   = openstack_networking_secgroup_v2.lb_sg.id
+  # remote_group_id   = openstack_networking_secgroup_v2.lb_sg.id
+  remote_ip_prefix  = openstack_networking_subnet_v2.public_subnet.cidr
+  security_group_id = openstack_networking_secgroup_v2.web_sg.id
+}
+
+# HTTP from App subnet Amphora 
+resource "openstack_networking_secgroup_rule_v2" "web_from_app_subnet" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 80
+  port_range_max    = 80
+  remote_ip_prefix  = openstack_networking_subnet_v2.app_subnet.cidr
   security_group_id = openstack_networking_secgroup_v2.web_sg.id
 }
 
