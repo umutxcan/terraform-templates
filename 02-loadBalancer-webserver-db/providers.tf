@@ -1,7 +1,6 @@
 terraform {
   required_providers {
     openstack = {
-      # MOST CRITICAL POINT:
       source  = "terraform-provider-openstack/openstack"
       version = "~> 1.53.0"
     }

@@ -4,7 +4,7 @@ resource "tls_private_key" "vmind_key" {
   rsa_bits  = 4096
 }
 
-# 2. Upload the generated PUBLIC key to the OpenStack (vMind) portal
+
 # This key will be injected into Bastion, Web, and DB instances
 resource "openstack_compute_keypair_v2" "terraform_key" {
   name       = "vmind-project-key"
