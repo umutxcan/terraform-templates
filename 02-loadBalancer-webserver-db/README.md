@@ -121,7 +121,7 @@ terraform apply -var-file="terraform.tfvars"
 
 ## Load Balancer Notları
 
-- LB health check, backend’lere **app subnet** üzerinden (10.0.2.x) ulaşır.
+- LB health check **HTTP** olarak çalışır ve backend’lere **app subnet** üzerinden (10.0.2.x) ulaşır.
 - Web SG’de **80/tcp için app subnet CIDR** izni olmalıdır.
 - VIP IP’nin public subnet’te olması, backend trafiğin de public subnet’ten geleceği anlamına gelmez.
 

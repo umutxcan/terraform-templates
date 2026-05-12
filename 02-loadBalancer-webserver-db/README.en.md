@@ -121,7 +121,7 @@ terraform apply -var-file="terraform.tfvars"
 
 ## Load Balancer Notes
 
-- The LB health check reaches backends via the **app subnet** (10.0.2.x).
+- The LB health check runs as **HTTP** and reaches backends via the **app subnet** (10.0.2.x).
 - The web security group must allow **80/tcp from the app subnet CIDR**.
 - Having the VIP in the public subnet does not mean backend traffic comes from the public subnet.
 
