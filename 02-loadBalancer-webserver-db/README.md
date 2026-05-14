@@ -1,7 +1,7 @@
 # Templates Rehberi (TR) — 02-loadBalancer-webserver-db
 
 ## Overview
-Bu doküman, **yük dengeleyici (Octavia)**, **bastion**, **web sunucuları** ve **veritabanı** katmanlarını içeren çok katmanlı mimariyi kuran *02-loadBalancer-webserver-db* şablonunun kullanımını açıklar.
+Bu doküman, **load balancer (Octavia)**, **bastion**, **web sunucuları** ve **veritabanı** katmanlarını içeren çok katmanlı mimariyi kuran *02-loadBalancer-webserver-db* şablonunun kullanımını açıklar.
 
 Bu şablon özellikle şu durumlar için uygundur:
 
