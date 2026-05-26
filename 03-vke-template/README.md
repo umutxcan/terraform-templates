@@ -77,6 +77,8 @@ terraform version
 
 In this template, the cluster API access is set to `public` (`cluster_api_access = "public"`).
 
+Kubernetes API and node management are isolated behind strict Security Group rules, accessible only via a dedicated Bastion host or authorized VPN IPs.
+
 Therefore, it’s strongly recommended to narrow down the `allowed_ips` variable to **your own IP/CIDR ranges**.
 
 > Since the default is `0.0.0.0/0`, if you don’t override it, the cluster API will be exposed publicly.
