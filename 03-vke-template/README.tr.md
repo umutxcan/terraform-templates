@@ -77,6 +77,8 @@ terraform version
 
 Bu şablonda cluster API erişimi `public` olarak açılıyor (`cluster_api_access = "public"`).
 
+Cluster'a doğrudan erişim dış dünyaya kapalıdır. Tüm yönetim süreçleri, bir Bastion sunucusu ve özel olarak izin verilmiş VPN ağ blokları üzerinden güvenli bir şekilde sağlanır.
+
 Bu yüzden `allowed_ips` değişkenini **mutlaka kendi IP/CIDR aralıklarınıza** göre daraltmanız önerilir.
 
 > Varsayılan değer `0.0.0.0/0` olduğu için override edilmezse cluster API herkese açık olur.
