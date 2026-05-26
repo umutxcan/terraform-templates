@@ -72,8 +72,6 @@ vmind_pass      = "YOUR_PASSWORD"
 vmind_tenant_id = "YOUR_TENANT_ID"
 project_id      = "YOUR_PROJECT_ID"
 
-# Cluster
-cluster_name = "dev-vke-cluster"
 
 # Flavor UUIDs
 master_flavor_id   = "YOUR_MASTER_FLAVOR_UUID"
