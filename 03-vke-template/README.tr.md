@@ -1,4 +1,4 @@
-# Templates Rehberi (TR) — vke-template (03)
+# Templates Rehberi (TR) — 03-vke-template 
 
 ## Overview
 Bu doküman, PortvMind **VKE (Kubernetes)** servisi üzerinde bir cluster ayağa kaldırmak için hazırlanan **03-vke-template** şablonunun adımlarını açıklar.
