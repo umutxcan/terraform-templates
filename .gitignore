@@ -1,0 +1,27 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+.terraform.lock.hcl
+resources
+
+
+# Kubernetes & Security
+*.pem
+vke-cluster-key.pem
+kubeconfig.yaml
+kubeconfig*
+kubectl
+*.yaml
+*.yml
+*.json
+
+
+# OS & Editors
+.vscode/
+.DS_Store
+*.swp
