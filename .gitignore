@@ -1,0 +1,16 @@
+# Terraform'un kendi dosyaları
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+
+# SENİN ÖZEL ŞİFRELERİN
+terraform.tfvars
+*.tfvars
+
+# ANAHTAR DOSYALARI (Burası hayat kurtarır)
+*.pem
+*.key
+
+# Log dosyaları
+*.log

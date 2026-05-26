@@ -1,0 +1,12 @@
+# Terraform's own files
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+
+# YOUR PRIVATE SECRETS (Most important)
+terraform.tfvars
+*.tfvars
+
+# Log files
+*.log
