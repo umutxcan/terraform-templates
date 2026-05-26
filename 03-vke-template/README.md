@@ -11,6 +11,46 @@ This template is especially useful when you want to:
 
 ---
 
+## Prerequisites
+
+| Requirement | Description |
+|------------|-------------|
+| PortvMind Account | An active vMind account |
+| Terraform | Terraform CLI must be installed |
+| Provider Access | vMind user / password / tenant / project information |
+| Network IDs | External public network UUID and flavor UUIDs |
+
+---
+
+## Terraform Installation
+
+### Ubuntu / Debian
+
+```bash
+sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt-get update && sudo apt-get install -y terraform
+terraform version
+```
+
+### macOS (Homebrew)
+
+```bash
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+terraform version
+```
+
+### Windows (PowerShell + Chocolatey)
+
+```powershell
+choco install terraform -y
+terraform version
+```
+
+---
+
 ## Files / What’s inside
 
 - `providers.tf`
@@ -30,17 +70,6 @@ This template is especially useful when you want to:
 - `variables.tf`
   - All required input variables
   - Default for `allowed_ips` (CIDR list) is `0.0.0.0/0`
-
----
-
-## Prerequisites
-
-| Requirement | Description |
-|------------|-------------|
-| PortvMind Account | An active vMind account |
-| Terraform | Terraform CLI must be installed |
-| Provider Access | vMind user / password / tenant / project information |
-| Network IDs | External public network UUID and flavor UUIDs |
 
 ---
 
