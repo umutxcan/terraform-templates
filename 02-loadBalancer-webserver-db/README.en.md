@@ -1,7 +1,7 @@
 # Templates Guide (EN) — 02-loadBalancer-webserver-db
 
 ## Overview
-This document explains how to use the *02-loadBalancer-webserver-db* template, which deploys a multi-tier architecture with **Load Balancer (Octavia)**, **bastion**, **web servers**, and **database** layers.
+This document explains how to use the *02-loadBalancer-webserver-db* template, which deploys a multi-tier architecture with **Load Balancer (Octavia)**, **bastion**, **web servers**, and **database** tiers.
 
 This template is particularly suitable for:
 
@@ -85,7 +85,8 @@ terraform version
 In this project, values for provider access are stored in the `terraform.tfvars` file.
 
 > **Note:** The `terraform.tfvars` file does not come with the repo by default.  
-> After cloning the repo, **the user must create it with their own values**.
+> After cloning the repo, **the user must create it with their own values.**  
+> Required resources are located in the "resources" folder.
 
 Example `terraform.tfvars`:
 
