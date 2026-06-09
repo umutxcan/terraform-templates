@@ -5,7 +5,7 @@ Bu doküman, **tek bir compute instance** ve **temel network bileşenleri** (VPC
 
 Bu şablon özellikle şu durumlar için uygundur:
 
-- Terraform’a yeni başlarken
+- Terraform'a yeni başlarken
 - Hızlı test ortamı kurarken
 - Basit network + tek compute ihtiyacında
 
@@ -92,7 +92,7 @@ terraform apply -var-file="terraform.tfvars"
 Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutulur.
 
 > **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
-> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle** oluşturmalıdır.
+> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle oluşturmalıdır.**  
 > Gerekli olan kaynaklar "resources" adlı klasör içinde bulunur.
 
 Örnek `terraform.tfvars`:
@@ -171,7 +171,7 @@ ssh ubuntu@<PUBLIC_IP>
 ssh -i <KEY_NAME>.pem ubuntu@<PUBLIC_IP>
 ```
 
-`<PUBLIC_IP>` değerini Terraform output’larından veya cloud konsoldan alabilirsiniz.
+`<PUBLIC_IP>` değerini Terraform output'larından veya cloud konsoldan alabilirsiniz.
 
 > Not: `<KEY_NAME>.pem` yerine kendi anahtar dosya adınızı yazın.
 
