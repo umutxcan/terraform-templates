@@ -1,8 +1,8 @@
-variable "vmind_user" {
+variable "portvmind_username" {
   type = string
 }
 
-variable "vmind_pass" {
+variable "portvmind_password" {
   type      = string
   sensitive = true
 }
