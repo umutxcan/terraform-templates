@@ -39,7 +39,7 @@ Bu şablon özellikle şu durumlar için uygundur:
 |------------|-------------|
 | PortvMind Account | Aktif bir vMind hesabı |
 | Terraform | Terraform CLI kurulu olmalı |
-| Provider Access | vMind user / password / tenant / project bilgileri hazır olmalı |
+| Provider Access | PortvMind username / password / tenant / project bilgileri hazır olmalı |
 | Network IDs | External public network UUID ve flavor UUID’leri hazır olmalı |
 
 ---
@@ -101,8 +101,8 @@ Bu yüzden `allowed_ips` değişkenini **mutlaka kendi IP/CIDR aralıklarınıza
 Aşağıdaki örneği `terraform.tfvars` olarak kaydedebilirsiniz:
 
 ```hcl
-vmind_user      = "YOUR_USER"
-vmind_pass      = "YOUR_PASSWORD"
+portvmind_username  = "YOUR_USERNAME"
+portvmind_password  = "YOUR_PASSWORD"
 vmind_tenant_id = "YOUR_TENANT_ID"
 project_id      = "YOUR_PROJECT_ID"
 
