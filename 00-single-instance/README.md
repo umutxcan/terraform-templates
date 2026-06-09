@@ -107,7 +107,7 @@ vmind_tenant_id     = "YOUR_TENANT_ID"
 
 
 
-## Sunucuya Erişim (SSH) ve Anahtar Yönetimi (Önemli)
+## Sunucuya Erişim (SSH) ve Anahtar Yönetimi 
 
 > Not: Şablon `.pem` anahtarı üretiyorsa dosya proje dizininde oluşur.  
 > (Şablona göre değişebilir.)
@@ -186,7 +186,7 @@ ssh -i <KEY_NAME>.pem ubuntu@<PUBLIC_IP>
 ---
 
 
-## Destroy Uyarısı (Önemli)
+## Destroy Uyarısı 
 
 > **`terraform destroy` güçlü bir komuttur.**  
 > Tüm kaynakları kalıcı olarak siler ve geri alınamaz.  
