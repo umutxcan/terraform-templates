@@ -77,7 +77,7 @@ terraform version
 ## Kullanım
 
 ```bash
-cd single-instance
+cd 00-single-instance
 terraform init
 terraform validate
 terraform plan -var-file="terraform.tfvars"
