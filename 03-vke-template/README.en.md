@@ -51,7 +51,7 @@ terraform version
 
 ---
 
-## Files / What’s inside
+## Files / What's inside
 
 - `providers.tf`
   - `vmindtech/portvmind` provider (VKE API)
@@ -79,9 +79,9 @@ In this template, the cluster API access is set to `public` (`cluster_api_access
 
 Kubernetes API and node management are isolated behind strict Security Group rules, accessible only via a dedicated Bastion host or authorized VPN IPs.
 
-Therefore, it’s strongly recommended to narrow down the `allowed_ips` variable to **your own IP/CIDR ranges**.
+Therefore, it's strongly recommended to narrow down the `allowed_ips` variable to **your own IP/CIDR ranges**.
 
-> Since the default is `0.0.0.0/0`, if you don’t override it, the cluster API will be exposed publicly.
+> Since the default is `0.0.0.0/0`, if you don't override it, the cluster API will be exposed publicly.
 
 ### (Optional) Auto-fetch your public IP for local testing
 The following blocks in `main.tf` are intended for **local testing**:
@@ -93,7 +93,9 @@ The following blocks in `main.tf` are intended for **local testing**:
 
 ## terraform.tfvars example
 
-> **Note:** `terraform.tfvars` is not included in the repository by default. After cloning, create it with your own values and **do not commit it**.
+> **Note:** The `terraform.tfvars` file does not come with the repo by default.  
+> After cloning the repo, **create it with your own values and do not commit it.**  
+> Required resources are located in the "resources" folder.
 
 You can save the following as `terraform.tfvars`:
 
