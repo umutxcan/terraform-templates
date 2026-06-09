@@ -1,10 +1,10 @@
-variable "vmind_user" {
-  type        = string
+variable "portvmind_username" {
+  type = string
 }
 
-variable "vmind_pass" {
-  type        = string
-  sensitive   = true 
+variable "portvmind_password" {
+  type      = string
+  sensitive = true
 }
 
 variable "vmind_tenant_id" {
