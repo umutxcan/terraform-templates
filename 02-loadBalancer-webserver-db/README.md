@@ -85,7 +85,8 @@ terraform version
 Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutulur.
 
 > **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
-> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle** oluşturmalıdır.
+> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle oluşturmalıdır.**  
+> Gerekli olan kaynaklar "resources" adlı klasör içinde bulunur.
 
 Örnek `terraform.tfvars`:
 
