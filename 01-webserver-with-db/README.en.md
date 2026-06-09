@@ -17,7 +17,7 @@ This template is particularly suitable for:
 |------------|-------------|
 | PortvMind Account | An active vMind account |
 | Terraform | Terraform CLI must be installed |
-| Provider Access | vMind user / tenant credentials must be ready |
+| Provider Access | PortvMind username / tenant credentials must be ready |
 | Local CLI | An environment where you can run Terraform commands |
 
 ---
@@ -73,7 +73,7 @@ An architecture example where web and DB instances run within the same VPC but i
 
 ---
 
-## VMind Credentials and Variables
+## PortvMind Credentials and Variables
 
 In this project, values for provider access are stored in the `terraform.tfvars` file.
 
@@ -84,8 +84,8 @@ In this project, values for provider access are stored in the `terraform.tfvars`
 Example `terraform.tfvars`:
 
 ```hcl
-vmind_user          = "YOUR_USER"
-vmind_pass          = "YOUR_PASSWORD"
+portvmind_username  = "YOUR_USERNAME"
+portvmind_password  = "YOUR_PASSWORD"
 ubuntu_image_id     = "YOUR_IMAGE_ID"
 standard_flavor_id  = "YOUR_FLAVOR_ID"
 external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
@@ -95,7 +95,7 @@ vmind_tenant_id     = "YOUR_TENANT_ID"
 ### Important Notes
 
 - **Do not commit** the `terraform.tfvars` file to the repo.
-- Use secret management for sensitive fields (such as `vmind_pass`).
+- Use secret management for sensitive fields (such as `portvmind_password`).
 - Make sure `*.tfvars` is included in `.gitignore`.
 - If the tenant ID is hardcoded in `providers.tf`, update it with your own tenant ID.
 
