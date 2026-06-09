@@ -22,6 +22,32 @@ Bu şablon özellikle şu durumlar için uygundur:
 
 ---
 
+## İçerik
+
+### `single-instance`
+Tek bir sunucu (compute) ve temel ağ bileşenleri kurmak için hazırlanmıştır.
+
+#### Dosyalar
+
+- `providers.tf`  
+  Terraform ve OpenStack provider ayarları.
+- `variables.tf`  
+  Dışarıdan alınan değişken tanımları.
+- `network.tf`  
+  Network / subnet / route gibi ağ bileşenleri.
+- `security.tf`  
+  Security Group erişim kuralları.
+- `keypair.tf`  
+  Sunucu erişimi için key pair tanımları.
+- `instance.tf`  
+  Compute instance tanımları.
+- `.gitignore`  
+  Terraform state ve tfvars gibi dosyaların git'e dahil edilmemesi için.
+
+---
+
+
+
 ## Terraform Kurulumu
 
 ### Ubuntu / Debian
@@ -47,6 +73,39 @@ terraform version
 ```
 
 ---
+
+## Kullanım
+
+```bash
+cd single-instance
+terraform init
+terraform validate
+terraform plan -var-file="terraform.tfvars"
+terraform apply -var-file="terraform.tfvars"
+```
+
+---
+
+
+## VMind Kimlik Bilgileri ve Değişkenler
+
+Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutulur.
+
+> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
+> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle** oluşturmalıdır.
+
+Örnek `terraform.tfvars`:
+
+```hcl
+vmind_user          = "YOUR_USER"
+vmind_pass          = "YOUR_PASSWORD"
+ubuntu_image_id     = "YOUR_IMAGE_ID"
+standard_flavor_id  = "YOUR_FLAVOR_ID"
+external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
+vmind_tenant_id     = "YOUR_TENANT_ID"
+```
+
+
 
 ## Sunucuya Erişim (SSH) ve Anahtar Yönetimi (Önemli)
 
@@ -86,6 +145,8 @@ ssh-add C:\path\to\<KEY_NAME>.pem
 ssh-add -l
 ```
 
+
+
 ### 3) (Opsiyonel) Anahtar Dosyasını Sunucudan Bilgisayarına Çekme
 
 > Bu komutu **kendi bilgisayarınızın terminalinde (PowerShell/CMD)** çalıştırın.
@@ -115,47 +176,6 @@ ssh -i <KEY_NAME>.pem ubuntu@<PUBLIC_IP>
 
 ---
 
-## İçerik
-
-### `single-instance`
-Tek bir sunucu (compute) ve temel ağ bileşenleri kurmak için hazırlanmıştır.
-
-#### Dosyalar
-
-- `providers.tf`  
-  Terraform ve OpenStack provider ayarları.
-- `variables.tf`  
-  Dışarıdan alınan değişken tanımları.
-- `network.tf`  
-  Network / subnet / route gibi ağ bileşenleri.
-- `security.tf`  
-  Security Group erişim kuralları.
-- `keypair.tf`  
-  Sunucu erişimi için key pair tanımları.
-- `instance.tf`  
-  Compute instance tanımları.
-- `.gitignore`  
-  Terraform state ve tfvars gibi dosyaların git'e dahil edilmemesi için.
-
----
-
-## VMind Kimlik Bilgileri ve Değişkenler
-
-Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutulur.
-
-> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
-> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle** oluşturmalıdır.
-
-Örnek `terraform.tfvars`:
-
-```hcl
-vmind_user          = "YOUR_USER"
-vmind_pass          = "YOUR_PASSWORD"
-ubuntu_image_id     = "YOUR_IMAGE_ID"
-standard_flavor_id  = "YOUR_FLAVOR_ID"
-external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
-vmind_tenant_id     = "YOUR_TENANT_ID"
-```
 
 ### Önemli Notlar
 
@@ -165,17 +185,6 @@ vmind_tenant_id     = "YOUR_TENANT_ID"
 
 ---
 
-## Kullanım
-
-```bash
-cd single-instance
-terraform init
-terraform validate
-terraform plan -var-file="terraform.tfvars"
-terraform apply -var-file="terraform.tfvars"
-```
-
----
 
 ## Destroy Uyarısı (Önemli)
 
