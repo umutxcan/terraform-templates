@@ -48,6 +48,71 @@ terraform version
 
 ---
 
+
+
+## Contents
+
+### `single-instance`
+Prepared for setting up a single server (compute) and basic network components.
+
+#### Files
+
+- `providers.tf`  
+  Terraform and OpenStack provider settings.
+- `variables.tf`  
+  Variable definitions received from outside.
+- `network.tf`  
+  Network components such as network / subnet / route.
+- `security.tf`  
+  Security Group access rules.
+- `keypair.tf`  
+  Key pair definitions for server access.
+- `instance.tf`  
+  Compute instance definitions.
+- `.gitignore`  
+  Prevents Terraform state and tfvars files from being included in git.
+
+---
+
+## VMind Credentials and Variables
+
+In this project, values for provider access are stored in the `terraform.tfvars` file.
+
+> **Note:** The `terraform.tfvars` file does not come with the repo by default.  
+> After cloning the repo, **the user must create it with their own values**.
+
+Example `terraform.tfvars`:
+
+```hcl
+vmind_user          = "YOUR_USER"
+vmind_pass          = "YOUR_PASSWORD"
+ubuntu_image_id     = "YOUR_IMAGE_ID"
+standard_flavor_id  = "YOUR_FLAVOR_ID"
+external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
+vmind_tenant_id     = "YOUR_TENANT_ID"
+```
+
+### Important Notes
+
+- **Do not commit** the `terraform.tfvars` file to the repo.
+- Use secret management for sensitive fields (such as `vmind_pass`).
+- Make sure `*.tfvars` is included in `.gitignore`.
+
+---
+
+## Usage
+
+```bash
+cd single-instance
+terraform init
+terraform validate
+terraform plan -var-file="terraform.tfvars"
+terraform apply -var-file="terraform.tfvars"
+```
+
+---
+
+
 ## Server Access (SSH) and Key Management 
 
 > Note: If the template generates a `.pem` key, the file will be created in the project directory.  
@@ -115,69 +180,7 @@ You can get the `<PUBLIC_IP>` value from the Terraform outputs or the cloud cons
 
 ---
 
-## Contents
-
-### `single-instance`
-Prepared for setting up a single server (compute) and basic network components.
-
-#### Files
-
-- `providers.tf`  
-  Terraform and OpenStack provider settings.
-- `variables.tf`  
-  Variable definitions received from outside.
-- `network.tf`  
-  Network components such as network / subnet / route.
-- `security.tf`  
-  Security Group access rules.
-- `keypair.tf`  
-  Key pair definitions for server access.
-- `instance.tf`  
-  Compute instance definitions.
-- `.gitignore`  
-  Prevents Terraform state and tfvars files from being included in git.
-
----
-
-## VMind Credentials and Variables
-
-In this project, values for provider access are stored in the `terraform.tfvars` file.
-
-> **Note:** The `terraform.tfvars` file does not come with the repo by default.  
-> After cloning the repo, **the user must create it with their own values**.
-
-Example `terraform.tfvars`:
-
-```hcl
-vmind_user          = "YOUR_USER"
-vmind_pass          = "YOUR_PASSWORD"
-ubuntu_image_id     = "YOUR_IMAGE_ID"
-standard_flavor_id  = "YOUR_FLAVOR_ID"
-external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
-vmind_tenant_id     = "YOUR_TENANT_ID"
-```
-
-### Important Notes
-
-- **Do not commit** the `terraform.tfvars` file to the repo.
-- Use secret management for sensitive fields (such as `vmind_pass`).
-- Make sure `*.tfvars` is included in `.gitignore`.
-
----
-
-## Usage
-
-```bash
-cd single-instance
-terraform init
-terraform validate
-terraform plan -var-file="terraform.tfvars"
-terraform apply -var-file="terraform.tfvars"
-```
-
----
-
-## Destroy Warning (Important)
+## Destroy Warning 
 
 > **`terraform destroy` is a powerful command.**  
 > It permanently deletes all resources and cannot be undone.  
