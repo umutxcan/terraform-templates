@@ -11,7 +11,7 @@ provider "openstack" {
   auth_url    = "https://tr-ist-01-apigw.portvmind.com/v3"
   user_name   = var.portvmind_username
   password    = var.portvmind_password
-  tenant_id  =  var.vmind_tenant_id 
+  tenant_id  =  var.project_id
   domain_name = "Default"
   region      = "tr-ist-01"
 }

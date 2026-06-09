@@ -7,10 +7,6 @@ variable "portvmind_password" {
   sensitive = true
 }
 
-variable "vmind_tenant_id" {
-  type        = string
-}
-
 variable "cluster_name" {
   type        = string
   default     = "dev-vke-cluster"
@@ -25,9 +21,6 @@ variable "master_flavor_id" {
   type        = string
   description = "VM spec flavor ID"
 }
-
-
-
 
 variable "external_network_id" {
   type        = string

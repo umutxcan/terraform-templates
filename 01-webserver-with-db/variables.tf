@@ -7,6 +7,12 @@ variable "portvmind_password" {
   sensitive = true
 }
 
+variable "project_id" {
+  type       = string
+  sensitive  = true
+
+}
+
 variable "vmind_region" {
   type    = string
   default = "tr-ist-01"
@@ -26,8 +32,3 @@ variable "external_network_id" {
   sensitive = true
 }
 
-variable "vmind_tenant_id" {
-  type        = string
-  description = "vMind Project (Tenant) ID"
-  sensitive = true
-}

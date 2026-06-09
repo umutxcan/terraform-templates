@@ -152,6 +152,7 @@ terraform apply -var-file="terraform.tfvars"
 ## Destroy Uyarısı (Önemli)
 
 > **`terraform destroy` güçlü bir komuttur.** Tüm kaynakları kalıcı olarak siler ve geri alınamaz.
+> Kota ile sıkıntı olma durumunda destroy sonrasında apply yapılmalıdır.
 
 Kaynakları silmek için:
 

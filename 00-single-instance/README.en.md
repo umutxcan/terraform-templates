@@ -90,7 +90,7 @@ portvmind_password  = "YOUR_PASSWORD"
 ubuntu_image_id     = "YOUR_IMAGE_ID"
 standard_flavor_id  = "YOUR_FLAVOR_ID"
 external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
-vmind_tenant_id     = "YOUR_TENANT_ID"
+project_id     = "YOUR_PROJECT_ID"
 ```
 
 ### Important Notes
@@ -184,7 +184,8 @@ You can get the `<PUBLIC_IP>` value from the Terraform outputs or the cloud cons
 ## Destroy Warning 
 
 > **`terraform destroy` is a powerful command.**  
-> It permanently deletes all resources and cannot be undone.  
+> It permanently deletes all resources and cannot be undone.
+> In case of quota limitations, a destroy operation should be performed followed by an apply.  
 > Make sure you are certain before using it, and if possible, check with `terraform plan` first.
 
 To delete resources:

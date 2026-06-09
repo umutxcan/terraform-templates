@@ -103,7 +103,7 @@ portvmind_password  = "YOUR_PASSWORD"
 ubuntu_image_id     = "YOUR_IMAGE_ID"
 standard_flavor_id  = "YOUR_FLAVOR_ID"
 external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
-vmind_tenant_id     = "YOUR_TENANT_ID"
+project_id     = "YOUR_PROJECT_ID"
 ```
 
 
@@ -190,7 +190,8 @@ ssh -i <KEY_NAME>.pem ubuntu@<PUBLIC_IP>
 ## Destroy Uyarısı 
 
 > **`terraform destroy` güçlü bir komuttur.**  
-> Tüm kaynakları kalıcı olarak siler ve geri alınamaz.  
+> Tüm kaynakları kalıcı olarak siler ve geri alınamaz.
+> Kota ile sıkıntı olma durumunda destroy sonrasında apply yapılmalıdır.
 > Kullanırken **emin olun** ve mümkünse önce `terraform plan` ile kontrol edin.
 
 Kaynakları silmek için:

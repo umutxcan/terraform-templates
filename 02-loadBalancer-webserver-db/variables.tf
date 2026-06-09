@@ -14,10 +14,12 @@ variable "vmind_region" {
   default = "tr-ist-01"
 }
 
-variable "vmind_tenant_id" {
-  type        = string
-  description = "vMind Project (Tenant) ID"
-  sensitive   = true
+
+
+variable "project_id" {
+  type       = string
+  sensitive  = true
+
 }
 
 # --- IMAGE & FLAVOR ---

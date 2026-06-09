@@ -150,6 +150,7 @@ terraform apply -var-file="terraform.tfvars"
 ## Destroy Warning (Important)
 
 > **`terraform destroy` is a powerful command.** It permanently deletes all resources and cannot be undone.
+> In case of quota limitations, a destroy operation should be performed followed by an apply.  
 
 To delete resources:
 
