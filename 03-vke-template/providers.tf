@@ -13,8 +13,8 @@ terraform {
 
 # provider for portvmind and openstack
 provider "portvmind" {
-  user_name   = var.vmind_user
-  password    = var.vmind_pass
+  user_name   = var.portvmind_username
+  password    = var.portvmind_password
  
   user_domain_name = "Default"
   auth_url    = "https://tr-ist-01-apigw.portvmind.com"
@@ -23,9 +23,9 @@ provider "portvmind" {
 }
 
 provider "openstack" {
-  user_name   = var.vmind_user
-  password    = var.vmind_pass
-  tenant_id  =  var.vmind_tenant_id
+  user_name   = var.portvmind_username
+  password    = var.portvmind_password
+  tenant_id  =  var.project_id
   domain_name = "Default"
   region      = "tr-ist-01"
   auth_url    = "https://tr-ist-01-apigw.portvmind.com/v3"
