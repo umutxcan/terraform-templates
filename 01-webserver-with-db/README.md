@@ -95,7 +95,6 @@ vmind_tenant_id     = "YOUR_TENANT_ID"
 - `terraform.tfvars` dosyasını **repoya commit etmeyin**.
 - Hassas alanlar (`vmind_pass` gibi) için secret yönetimi kullanın.
 - `.gitignore` içinde `*.tfvars` olduğundan emin olun.
-- `providers.tf` içinde tenant ID sabit verilmişse, kendi tenant ID’nizle güncelleyin.
 
 ---
 
