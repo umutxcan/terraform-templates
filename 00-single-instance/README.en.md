@@ -79,7 +79,8 @@ Prepared for setting up a single server (compute) and basic network components.
 In this project, values for provider access are stored in the `terraform.tfvars` file.
 
 > **Note:** The `terraform.tfvars` file does not come with the repo by default.  
-> After cloning the repo, **the user must create it with their own values**.
+> After cloning the repo, **the user must create it with their own values.**  
+> Required resources are located in the "resources" folder.
 
 Example `terraform.tfvars`:
 
