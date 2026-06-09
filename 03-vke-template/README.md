@@ -39,7 +39,7 @@ Bu şablon özellikle şu durumlar için uygundur:
 |------------|-------------|
 | PortvMind Account | Aktif bir vMind hesabı |
 | Terraform | Terraform CLI kurulu olmalı |
-| Provider Access | PortvMind username / password / tenant / project bilgileri hazır olmalı |
+| Provider Access | PortvMind username / password / project bilgileri hazır olmalı |
 | Network IDs | External public network UUID ve flavor UUID’leri hazır olmalı |
 
 ---
@@ -103,7 +103,6 @@ Aşağıdaki örneği `terraform.tfvars` olarak kaydedebilirsiniz:
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
 portvmind_password  = "YOUR_PASSWORD"
-vmind_tenant_id = "YOUR_TENANT_ID"
 project_id      = "YOUR_PROJECT_ID"
 
 

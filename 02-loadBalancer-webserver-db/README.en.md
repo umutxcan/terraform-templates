@@ -93,11 +93,10 @@ Example `terraform.tfvars`:
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
 portvmind_password  = "YOUR_PASSWORD"
-vmind_tenant_id     = "YOUR_TENANT_ID"
+project_id          = "YOUR_PROJECT_ID"
 ubuntu_image_id     = "YOUR_IMAGE_ID"
 standard_flavor_id  = "YOUR_FLAVOR_ID"
 external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
-web_instance_count  = 2
 ```
 
 ### Important Notes

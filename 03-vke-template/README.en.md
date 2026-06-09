@@ -17,7 +17,7 @@ This template is especially useful when you want to:
 |------------|-------------|
 | PortvMind Account | An active vMind account |
 | Terraform | Terraform CLI must be installed |
-| Provider Access | PortvMind username / password / tenant / project information |
+| Provider Access | PortvMind username / password  / project information |
 | Network IDs | External public network UUID and flavor UUIDs |
 
 ---
@@ -102,7 +102,6 @@ You can save the following as `terraform.tfvars`:
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
 portvmind_password  = "YOUR_PASSWORD"
-vmind_tenant_id = "YOUR_TENANT_ID"
 project_id      = "YOUR_PROJECT_ID"
 
 # Flavor UUIDs
@@ -150,7 +149,7 @@ terraform apply -var-file="terraform.tfvars"
 ## Destroy Warning (Important)
 
 > **`terraform destroy` is a powerful command.** It permanently deletes all resources and cannot be undone.
-> In case of quota limitations, a destroy operation should be performed followed by an apply.  
+> In case of quota limitations, a destroy operation should be performed followed by an apply.
 
 To delete resources:
 

@@ -17,7 +17,7 @@ This template is particularly suitable for:
 |------------|-------------|
 | PortvMind Account | An active vMind account |
 | Terraform | Terraform CLI must be installed |
-| Provider Access | PortvMind username / tenant credentials must be ready |
+| Provider Access | PortvMind username / project_id credentials must be ready |
 | Local CLI | An environment where you can run Terraform commands |
 
 ---
@@ -90,7 +90,7 @@ portvmind_password  = "YOUR_PASSWORD"
 ubuntu_image_id     = "YOUR_IMAGE_ID"
 standard_flavor_id  = "YOUR_FLAVOR_ID"
 external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
-project_id     = "YOUR_PROJECT_ID"
+project_id          = "YOUR_PROJECT_ID"
 ```
 
 ### Important Notes

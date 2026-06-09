@@ -17,7 +17,7 @@ Bu şablon özellikle şu durumlar için uygundur:
 |------------|-------------|
 | PortvMind Account | Aktif bir vMind hesabı |
 | Terraform | Terraform CLI kurulmuş olmalı |
-| Provider Access | PortvMind username / tenant bilgileri hazır olmalı |
+| Provider Access | PortvMind username / project_id bilgileri hazır olmalı |
 | Local CLI | Terraform komutlarını çalıştırabileceğiniz bir ortam |
 
 ---
@@ -103,7 +103,7 @@ portvmind_password  = "YOUR_PASSWORD"
 ubuntu_image_id     = "YOUR_IMAGE_ID"
 standard_flavor_id  = "YOUR_FLAVOR_ID"
 external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
-project_id     = "YOUR_PROJECT_ID"
+project_id          = "YOUR_PROJECT_ID"
 ```
 
 
