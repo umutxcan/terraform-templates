@@ -46,9 +46,73 @@ choco install terraform -y
 terraform version
 ```
 
+
+
+## İçerik
+
+### `webserver-with-db`
+Web ve DB instance’larının aynı VPC içinde fakat farklı subnet’lerde çalıştığı mimari örneği.
+
+#### Dosyalar
+
+- `providers.tf`  
+  Terraform ve OpenStack provider ayarları.
+- `variables.tf`  
+  Dışarıdan alınan değişken tanımları.
+- `network.tf`  
+  VPC / subnet / route yapılandırması.
+- `security.tf`  
+  Web ve DB katmanları için SG kuralları.
+- `keypair.tf`  
+  Sunucu erişimi için key pair tanımları.
+- `compute.tf`  
+  Web ve DB compute kaynakları.
+- `.gitignore`  
+  Terraform state ve tfvars gibi dosyaların git'e dahil edilmemesi için.
+
 ---
 
-## Sunucuya Erişim (SSH) ve Anahtar Yönetimi (Önemli)
+## VMind Kimlik Bilgileri ve Değişkenler
+
+Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutulur.
+
+> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
+> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle** oluşturmalıdır.
+
+Örnek `terraform.tfvars`:
+
+```hcl
+vmind_user          = "YOUR_USER"
+vmind_pass          = "YOUR_PASSWORD"
+ubuntu_image_id     = "YOUR_IMAGE_ID"
+standard_flavor_id  = "YOUR_FLAVOR_ID"
+external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
+vmind_tenant_id     = "YOUR_TENANT_ID"
+```
+
+### Önemli Notlar
+
+- `terraform.tfvars` dosyasını **repoya commit etmeyin**.
+- Hassas alanlar (`vmind_pass` gibi) için secret yönetimi kullanın.
+- `.gitignore` içinde `*.tfvars` olduğundan emin olun.
+- `providers.tf` içinde tenant ID sabit verilmişse, kendi tenant ID’nizle güncelleyin.
+
+---
+
+## Kullanım
+
+```bash
+cd webserver-with-db
+terraform init
+terraform validate
+terraform plan -var-file="terraform.tfvars"
+terraform apply -var-file="terraform.tfvars"
+```
+
+---
+
+
+## Sunucuya Erişim (SSH) ve Anahtar Yönetimi 
 
 > Not: Şablon `.pem` anahtarı üretiyorsa dosya proje dizininde oluşur.  
 > (Şablona göre değişebilir.)
@@ -123,68 +187,7 @@ ssh -i <KEY_NAME>.pem ubuntu@<BASTION_PUBLIC_IP>
 
 ---
 
-## İçerik
 
-### `webserver-with-db`
-Web ve DB instance’larının aynı VPC içinde fakat farklı subnet’lerde çalıştığı mimari örneği.
-
-#### Dosyalar
-
-- `providers.tf`  
-  Terraform ve OpenStack provider ayarları.
-- `variables.tf`  
-  Dışarıdan alınan değişken tanımları.
-- `network.tf`  
-  VPC / subnet / route yapılandırması.
-- `security.tf`  
-  Web ve DB katmanları için SG kuralları.
-- `keypair.tf`  
-  Sunucu erişimi için key pair tanımları.
-- `compute.tf`  
-  Web ve DB compute kaynakları.
-- `.gitignore`  
-  Terraform state ve tfvars gibi dosyaların git'e dahil edilmemesi için.
-
----
-
-## VMind Kimlik Bilgileri ve Değişkenler
-
-Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutulur.
-
-> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
-> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle** oluşturmalıdır.
-
-Örnek `terraform.tfvars`:
-
-```hcl
-vmind_user          = "YOUR_USER"
-vmind_pass          = "YOUR_PASSWORD"
-ubuntu_image_id     = "YOUR_IMAGE_ID"
-standard_flavor_id  = "YOUR_FLAVOR_ID"
-external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
-vmind_tenant_id     = "YOUR_TENANT_ID"
-```
-
-### Önemli Notlar
-
-- `terraform.tfvars` dosyasını **repoya commit etmeyin**.
-- Hassas alanlar (`vmind_pass` gibi) için secret yönetimi kullanın.
-- `.gitignore` içinde `*.tfvars` olduğundan emin olun.
-- `providers.tf` içinde tenant ID sabit verilmişse, kendi tenant ID’nizle güncelleyin.
-
----
-
-## Kullanım
-
-```bash
-cd webserver-with-db
-terraform init
-terraform validate
-terraform plan -var-file="terraform.tfvars"
-terraform apply -var-file="terraform.tfvars"
-```
-
----
 
 ## Destroy Uyarısı (Önemli)
 
