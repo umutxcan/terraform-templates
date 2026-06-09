@@ -17,7 +17,7 @@ Bu şablon özellikle şu durumlar için uygundur:
 |------------|-------------|
 | PortvMind Account | Aktif bir vMind hesabı |
 | Terraform | Terraform CLI kurulmuş olmalı |
-| Provider Access | vMind user / tenant bilgileri hazır olmalı |
+| Provider Access | PortvMind username / tenant bilgileri hazır olmalı |
 | Local CLI | Terraform komutlarını çalıştırabileceğiniz bir ortam |
 
 ---
@@ -91,8 +91,8 @@ Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutu
 Örnek `terraform.tfvars`:
 
 ```hcl
-vmind_user          = "YOUR_USER"
-vmind_pass          = "YOUR_PASSWORD"
+portvmind_username  = "YOUR_USERNAME"
+portvmind_password  = "YOUR_PASSWORD"
 vmind_tenant_id     = "YOUR_TENANT_ID"
 ubuntu_image_id     = "YOUR_IMAGE_ID"
 standard_flavor_id  = "YOUR_FLAVOR_ID"
@@ -103,7 +103,7 @@ web_instance_count  = 2
 ### Önemli Notlar
 
 - `terraform.tfvars` dosyasını **repoya commit etmeyin**.
-- Hassas alanlar (`vmind_pass` gibi) için secret yönetimi kullanın.
+- Hassas alanlar (`portvmind_password` gibi) için secret yönetimi kullanın.
 - `.gitignore` içinde `*.tfvars` olduğundan emin olun.
 
 ---
