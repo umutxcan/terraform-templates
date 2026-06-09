@@ -1,7 +1,7 @@
 # Templates Rehberi (TR) — webserver-with-db
 
 ## Overview
-Bu doküman, **aynı network içinde** çalışan **web + database katmanlarını** ayrı subnet’lerde kuran *webserver-with-db* şablonunun adımlarını açıklar.
+Bu doküman, **aynı network içinde** çalışan **web + database katmanlarını** ayrı subnet'lerde kuran *webserver-with-db* şablonunun adımlarını açıklar.
 
 Bu şablon özellikle şu durumlar için uygundur:
 
@@ -17,7 +17,7 @@ Bu şablon özellikle şu durumlar için uygundur:
 |------------|-------------|
 | PortvMind Account | Aktif bir vMind hesabı |
 | Terraform | Terraform CLI kurulmuş olmalı |
-| Provider Access | vMind user / tenant bilgileri hazır olmalı |
+| Provider Access | PortvMind username / tenant bilgileri hazır olmalı |
 | Local CLI | Terraform komutlarını çalıştırabileceğiniz bir ortam |
 
 ---
@@ -51,7 +51,7 @@ terraform version
 ## İçerik
 
 ### `webserver-with-db`
-Web ve DB instance’larının aynı VPC içinde fakat farklı subnet’lerde çalıştığı mimari örneği.
+Web ve DB instance'larının aynı VPC içinde fakat farklı subnet'lerde çalıştığı mimari örneği.
 
 #### Dosyalar
 
@@ -72,7 +72,7 @@ Web ve DB instance’larının aynı VPC içinde fakat farklı subnet’lerde ç
 
 ---
 
-## VMind Kimlik Bilgileri ve Değişkenler
+## PortvMind Kimlik Bilgileri ve Değişkenler
 
 Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutulur.
 
@@ -83,8 +83,8 @@ Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutu
 Örnek `terraform.tfvars`:
 
 ```hcl
-vmind_user          = "YOUR_USER"
-vmind_pass          = "YOUR_PASSWORD"
+portvmind_username  = "YOUR_USERNAME"
+portvmind_password  = "YOUR_PASSWORD"
 ubuntu_image_id     = "YOUR_IMAGE_ID"
 standard_flavor_id  = "YOUR_FLAVOR_ID"
 external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
@@ -94,7 +94,7 @@ vmind_tenant_id     = "YOUR_TENANT_ID"
 ### Önemli Notlar
 
 - `terraform.tfvars` dosyasını **repoya commit etmeyin**.
-- Hassas alanlar (`vmind_pass` gibi) için secret yönetimi kullanın.
+- Hassas alanlar (`portvmind_password` gibi) için secret yönetimi kullanın.
 - `.gitignore` içinde `*.tfvars` olduğundan emin olun.
 
 ---
@@ -166,12 +166,12 @@ scp -i "C:\Keys\deneme12345.pem" "ubuntu@192.168.100.X:/home/ubuntu/vmind-terraf
 
 ### 4) Bastion Üzerinden DB Sunucusuna Geçiş
 
-1) Önce bastion’a bağlanın:
+1) Önce bastion'a bağlanın:
 ```bash
 ssh ubuntu@<BASTION_PUBLIC_IP>
 ```
 
-2) Bastion içinden DB instance’a geçin:
+2) Bastion içinden DB instance'a geçin:
 ```bash
 ssh -A ubuntu@<DB_PRIVATE_IP>
 ```
@@ -205,6 +205,6 @@ terraform destroy -var-file="terraform.tfvars"
 
 ## Mimari Notu
 
-- Web katmanı ve DB katmanı **ayrı subnet’lerde** çalışır.
+- Web katmanı ve DB katmanı **ayrı subnet'lerde** çalışır.
 - SG kuralları ile web -> DB erişimi sadece gerekli port üzerinden açılır.
 - DB katmanı doğrudan public erişime açık tutulmaz (önerilen yaklaşım).
