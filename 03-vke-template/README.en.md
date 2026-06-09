@@ -17,7 +17,7 @@ This template is especially useful when you want to:
 |------------|-------------|
 | PortvMind Account | An active vMind account |
 | Terraform | Terraform CLI must be installed |
-| Provider Access | vMind user / password / tenant / project information |
+| Provider Access | PortvMind username / password / tenant / project information |
 | Network IDs | External public network UUID and flavor UUIDs |
 
 ---
@@ -100,8 +100,8 @@ The following blocks in `main.tf` are intended for **local testing**:
 You can save the following as `terraform.tfvars`:
 
 ```hcl
-vmind_user      = "YOUR_USER"
-vmind_pass      = "YOUR_PASSWORD"
+portvmind_username  = "YOUR_USERNAME"
+portvmind_password  = "YOUR_PASSWORD"
 vmind_tenant_id = "YOUR_TENANT_ID"
 project_id      = "YOUR_PROJECT_ID"
 
