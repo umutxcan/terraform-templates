@@ -1,13 +1,13 @@
-# Templates Guide (EN) — webserver-with-db
+# Template Guide (EN) — 01-webserver-with-db
 
 ## Overview
-This document describes the steps for the *webserver-with-db* template, which sets up **web + database tiers** running **within the same network** but in separate subnets.
+This document explains how to use the **01-webserver-with-db** template, which provisions **web and database tiers** in the same network but in separate subnets.
 
 This template is particularly suitable for:
 
 - Setting up a multi-tier architecture example
 - Testing scenarios like WordPress + DB
-- Demonstrating subnet & SG segmentation
+- Demonstrating subnet and security group segmentation
 
 ---
 
@@ -15,9 +15,9 @@ This template is particularly suitable for:
 
 | Requirement | Description |
 |------------|-------------|
-| PortvMind Account | An active vMind account |
+| PortvMind Account | An active PortvMind account |
 | Terraform | Terraform CLI must be installed |
-| Provider Access | PortvMind username / tenant credentials must be ready |
+| Provider Access | PortvMind username, password, and project information |
 | Local CLI | An environment where you can run Terraform commands |
 
 ---
@@ -48,38 +48,37 @@ terraform version
 
 ---
 
-
 ## Contents
 
 ### `webserver-with-db`
-An architecture example where web and DB instances run within the same VPC but in separate subnets.
+An architecture example where web and database instances run in the same network but in separate subnets.
 
 #### Files
 
-- `providers.tf`  
+- `providers.tf`
   Terraform and OpenStack provider settings.
-- `variables.tf`  
-  Variable definitions received from outside.
-- `network.tf`  
-  VPC / subnet / route configuration.
-- `security.tf`  
-  SG rules for the web and DB tiers.
-- `keypair.tf`  
+- `variables.tf`
+  Input variable definitions.
+- `network.tf`
+  Network, subnet, and router configuration.
+- `security.tf`
+  Security group rules for the web and database tiers.
+- `keypair.tf`
   Key pair definitions for server access.
-- `compute.tf`  
+- `compute.tf`
   Web and DB compute resources.
-- `.gitignore`  
+- `.gitignore`
   Prevents Terraform state and tfvars files from being included in git.
 
 ---
 
 ## PortvMind Credentials and Variables
 
-In this project, values for provider access are stored in the `terraform.tfvars` file.
+In this project, provider access values are stored in a `terraform.tfvars` file.
 
-> **Note:** The `terraform.tfvars` file does not come with the repo by default.  
-> After cloning the repo, **the user must create it with their own values.**  
-> Required resources are located in the "resources" folder.
+> **Note:** The `terraform.tfvars` file does not come with the repository by default.
+> After cloning the repository, **create it with your own values and do not commit it.**
+> Required resource IDs are documented in the `resources` folder.
 
 Example `terraform.tfvars`:
 
@@ -94,10 +93,10 @@ project_id          = "YOUR_PROJECT_ID"
 
 ### Important Notes
 
-- **Do not commit** the `terraform.tfvars` file to the repo.
+- **Do not commit** the `terraform.tfvars` file to the repository.
 - Use secret management for sensitive fields (such as `portvmind_password`).
 - Make sure `*.tfvars` is included in `.gitignore`.
-- If the tenant ID is hardcoded in `providers.tf`, update it with your own tenant ID.
+- Use your own project ID in `terraform.tfvars`.
 
 ---
 
@@ -113,11 +112,9 @@ terraform apply -var-file="terraform.tfvars"
 
 ---
 
+## Server Access (SSH) and Key Management
 
-
-## Server Access (SSH) and Key Management 
-
-> Note: If the template generates a `.pem` key, the file will be created in the project directory.  
+> Note: If the template generates a `.pem` key, the file will be created in the project directory.
 > (This may vary depending on the template.)
 
 ### 1) Set Key Permissions
@@ -137,7 +134,7 @@ icacls.exe <KEY_NAME>.pem /grant:r "$($env:username):(R)"
 
 ### 2) SSH Agent (Recommended)
 
-Using SSH Agent, you can connect without typing `-i key.pem` every time.  
+Using SSH Agent, you can connect without typing `-i key.pem` every time.
 This is especially useful in **bastion-to-DB-tier jump** scenarios, as it speeds up the process.
 
 **Linux / macOS**
@@ -190,12 +187,11 @@ ssh -i <KEY_NAME>.pem ubuntu@<BASTION_PUBLIC_IP>
 
 ---
 
+## Destroy Warning
 
-## Destroy Warning 
-
-> **`terraform destroy` is a powerful command.**  
-> It permanently deletes all resources and cannot be undone.  
-> In case of quota limitations, a destroy operation should be performed followed by an apply.  
+> **`terraform destroy` is a powerful command.**
+> It permanently deletes all resources and cannot be undone.
+> If you need to recreate resources because of quota limitations, run `terraform destroy` before applying again.
 > Make sure you are certain before using it, and if possible, check with `terraform plan` first.
 
 To delete resources:
@@ -209,5 +205,5 @@ terraform destroy -var-file="terraform.tfvars"
 ## Architecture Note
 
 - The web tier and DB tier run in **separate subnets**.
-- SG rules allow web → DB access only over the required port.
+- Security group rules allow web-to-database access only over the required port.
 - The DB tier is not exposed to direct public access (recommended approach).

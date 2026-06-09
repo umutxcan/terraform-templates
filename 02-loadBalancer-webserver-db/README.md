@@ -1,6 +1,6 @@
-# Templates Rehberi (TR) — 02-loadBalancer-webserver-db
+# Template Rehberi (TR) — 02-loadBalancer-webserver-db
 
-## Overview
+## Genel Bakış
 Bu doküman, **load balancer (Octavia)**, **bastion**, **web sunucuları** ve **veritabanı** katmanlarını içeren çok katmanlı mimariyi kuran *02-loadBalancer-webserver-db* şablonunun kullanımını açıklar.
 
 Bu şablon özellikle şu durumlar için uygundur:
@@ -11,13 +11,13 @@ Bu şablon özellikle şu durumlar için uygundur:
 
 ---
 
-## Prerequisites
+## Ön Koşullar
 
-| Requirement | Description |
+| Gereksinim | Açıklama |
 |------------|-------------|
-| PortvMind Account | Aktif bir vMind hesabı |
+| PortvMind Account | Aktif bir PortvMind hesabı |
 | Terraform | Terraform CLI kurulmuş olmalı |
-| Provider Access | PortvMind username / tenant bilgileri hazır olmalı |
+| Provider Access | PortvMind username, password ve project bilgileri hazır olmalı |
 | Local CLI | Terraform komutlarını çalıştırabileceğiniz bir ortam |
 
 ---
@@ -63,30 +63,30 @@ terraform version
 
 #### Dosyalar
 
-- `providers.tf`  
+- `providers.tf`
   Terraform ve OpenStack provider ayarları.
-- `variables.tf`  
-  Dışarıdan alınan değişken tanımları.
-- `network.tf`  
-  VPC / subnet / router gibi ağ bileşenleri.
-- `security.tf`  
-  Security Group erişim kuralları.
-- `keypair.tf`  
+- `variables.tf`
+  Input değişken tanımları.
+- `network.tf`
+  Network, subnet ve router yapılandırması.
+- `security.tf`
+  Security group erişim kuralları.
+- `keypair.tf`
   Sunucu erişimi için key pair tanımları.
-- `compute.tf`  
+- `compute.tf`
   Bastion, web ve DB instance tanımları.
-- `loadbalancer.tf`  
-  Octavia LB, listener, pool, health monitor ve members.
+- `loadbalancer.tf`
+  Octavia load balancer, listener, pool, health monitor ve member kaynakları.
 
 ---
 
-## VMind Kimlik Bilgileri ve Değişkenler
+## PortvMind Kimlik Bilgileri ve Değişkenler
 
 Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutulur.
 
-> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
-> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle oluşturmalıdır.**  
-> Gerekli olan kaynaklar "resources" adlı klasör içinde bulunur.
+> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.
+> Repoyu klonladıktan sonra **kendi değerlerinizle oluşturun ve commit etmeyin.**
+> Gerekli resource ID bilgileri `resources` klasöründe dokümante edilmiştir.
 
 Örnek `terraform.tfvars`:
 
@@ -122,16 +122,16 @@ terraform apply -var-file="terraform.tfvars"
 ## Load Balancer Notları
 
 - LB health check **HTTP** olarak çalışır ve backend’lere **app subnet** üzerinden (10.0.2.x) ulaşır.
-- Web SG’de **80/tcp için app subnet CIDR** izni olmalıdır.
-- VIP IP’nin public subnet’te olması, backend trafiğin de public subnet’ten geleceği anlamına gelmez.
+- Web security group içinde **80/tcp için app subnet CIDR** izni olmalıdır.
+- VIP IP’nin public subnet’te olması, backend trafiğinin de public subnet’ten geleceği anlamına gelmez.
 
 ---
 
 ## Destroy Uyarısı (Önemli)
 
-> **`terraform destroy` güçlü bir komuttur.**  
-> Tüm kaynakları kalıcı olarak siler ve geri alınamaz.  
-> Kota ile sıkıntı olma durumunda destroy sonrasında apply yapılmalıdır.
+> **`terraform destroy` güçlü bir komuttur.**
+> Tüm kaynakları kalıcı olarak siler ve geri alınamaz.
+> Kaynakları kota nedeniyle yeniden oluşturmanız gerekiyorsa tekrar apply etmeden önce `terraform destroy` çalıştırın.
 > Kullanırken **emin olun** ve mümkünse önce `terraform plan` ile kontrol edin.
 
 Kaynakları silmek için:

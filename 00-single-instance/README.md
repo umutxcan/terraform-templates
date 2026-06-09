@@ -1,7 +1,7 @@
-# Templates Rehberi (TR) — single-instance
+# Template Rehberi (TR) — 00-single-instance
 
-## Overview
-Bu doküman, **tek bir compute instance** ve **temel network bileşenleri** (VPC/Subnet/Route/SG) kurmak için kullanılan *single-instance* şablonunun adımlarını açıklar.
+## Genel Bakış
+Bu doküman, **tek bir compute instance** ve **temel network bileşenleri** (network, subnet, router ve security group) kurmak için kullanılan **00-single-instance** şablonunun adımlarını açıklar.
 
 Bu şablon özellikle şu durumlar için uygundur:
 
@@ -11,42 +11,40 @@ Bu şablon özellikle şu durumlar için uygundur:
 
 ---
 
-## Prerequisites
+## Ön Koşullar
 
-| Requirement | Description |
+| Gereksinim | Açıklama |
 |------------|-------------|
-| PortvMind Account | Aktif bir vMind hesabı |
+| PortvMind Account | Aktif bir PortvMind hesabı |
 | Terraform | Terraform CLI kurulmuş olmalı |
-| Provider Access | PortvMind username / project_id bilgileri hazır olmalı |
+| Provider Access | PortvMind username, password ve project bilgileri hazır olmalı |
 | Local CLI | Terraform komutlarını çalıştırabileceğiniz bir ortam |
 
 ---
 
 ## İçerik
 
-### `single-instance`
+### `00-single-instance`
 Tek bir sunucu (compute) ve temel ağ bileşenleri kurmak için hazırlanmıştır.
 
 #### Dosyalar
 
-- `providers.tf`  
+- `providers.tf`
   Terraform ve OpenStack provider ayarları.
-- `variables.tf`  
-  Dışarıdan alınan değişken tanımları.
-- `network.tf`  
-  Network / subnet / route gibi ağ bileşenleri.
-- `security.tf`  
-  Security Group erişim kuralları.
-- `keypair.tf`  
+- `variables.tf`
+  Input değişken tanımları.
+- `network.tf`
+  Network, subnet ve router yapılandırması.
+- `security.tf`
+  Security group erişim kuralları.
+- `keypair.tf`
   Sunucu erişimi için key pair tanımları.
-- `instance.tf`  
+- `compute.tf`
   Compute instance tanımları.
-- `.gitignore`  
+- `.gitignore`
   Terraform state ve tfvars gibi dosyaların git'e dahil edilmemesi için.
 
 ---
-
-
 
 ## Terraform Kurulumu
 
@@ -86,14 +84,13 @@ terraform apply -var-file="terraform.tfvars"
 
 ---
 
-
 ## PortvMind Kimlik Bilgileri ve Değişkenler
 
 Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutulur.
 
-> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
-> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle oluşturmalıdır.**  
-> Gerekli olan kaynaklar "resources" adlı klasör içinde bulunur.
+> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.
+> Repoyu klonladıktan sonra **kendi değerlerinizle oluşturun ve commit etmeyin.**
+> Gerekli resource ID bilgileri `resources` klasöründe dokümante edilmiştir.
 
 Örnek `terraform.tfvars`:
 
@@ -106,11 +103,9 @@ external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
 project_id          = "YOUR_PROJECT_ID"
 ```
 
+## Sunucuya Erişim (SSH) ve Anahtar Yönetimi
 
-
-## Sunucuya Erişim (SSH) ve Anahtar Yönetimi 
-
-> Not: Şablon `.pem` anahtarı üretiyorsa dosya proje dizininde oluşur.  
+> Not: Şablon `.pem` anahtarı üretiyorsa dosya proje dizininde oluşur.
 > (Şablona göre değişebilir.)
 
 ### 1) Anahtar İzinlerini Ayarlayın
@@ -146,9 +141,7 @@ ssh-add C:\path\to\<KEY_NAME>.pem
 ssh-add -l
 ```
 
-
-
-### 3) (Opsiyonel) Anahtar Dosyasını Sunucudan Bilgisayarına Çekme
+### 3) (Opsiyonel) Anahtar Dosyasını Sunucudan Bilgisayarınıza Çekme
 
 > Bu komutu **kendi bilgisayarınızın terminalinde (PowerShell/CMD)** çalıştırın.
 
@@ -171,12 +164,11 @@ ssh ubuntu@<PUBLIC_IP>
 ssh -i <KEY_NAME>.pem ubuntu@<PUBLIC_IP>
 ```
 
-`<PUBLIC_IP>` değerini Terraform output'larından veya cloud konsoldan alabilirsiniz.
+`<PUBLIC_IP>` değerini Terraform outputlarından veya cloud konsoldan alabilirsiniz.
 
 > Not: `<KEY_NAME>.pem` yerine kendi anahtar dosya adınızı yazın.
 
 ---
-
 
 ### Önemli Notlar
 
@@ -186,12 +178,11 @@ ssh -i <KEY_NAME>.pem ubuntu@<PUBLIC_IP>
 
 ---
 
+## Destroy Uyarısı
 
-## Destroy Uyarısı 
-
-> **`terraform destroy` güçlü bir komuttur.**  
+> **`terraform destroy` güçlü bir komuttur.**
 > Tüm kaynakları kalıcı olarak siler ve geri alınamaz.
-> Kota ile sıkıntı olma durumunda destroy sonrasında apply yapılmalıdır.
+> Kaynakları kota nedeniyle yeniden oluşturmanız gerekiyorsa tekrar apply etmeden önce `terraform destroy` çalıştırın.
 > Kullanırken **emin olun** ve mümkünse önce `terraform plan` ile kontrol edin.
 
 Kaynakları silmek için:

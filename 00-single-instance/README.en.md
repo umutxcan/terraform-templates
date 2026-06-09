@@ -1,7 +1,7 @@
-# Templates Guide (EN) — single-instance
+# Template Guide (EN) — 00-single-instance
 
 ## Overview
-This document describes the steps for the *single-instance* template, which sets up **a single compute instance** and **basic network components** (VPC/Subnet/Route/SG).
+This document explains how to use the **00-single-instance** template, which provisions **one compute instance** and **basic network components** (network, subnet, router, and security group).
 
 This template is particularly suitable for:
 
@@ -15,9 +15,9 @@ This template is particularly suitable for:
 
 | Requirement | Description |
 |------------|-------------|
-| PortvMind Account | An active vMind account |
+| PortvMind Account | An active PortvMind account |
 | Terraform | Terraform CLI must be installed |
-| Provider Access | PortvMind username / project_id credentials must be ready |
+| Provider Access | PortvMind username, password, and project information |
 | Local CLI | An environment where you can run Terraform commands |
 
 ---
@@ -48,39 +48,37 @@ terraform version
 
 ---
 
-
-
 ## Contents
 
-### `single-instance`
-Prepared for setting up a single server (compute) and basic network components.
+### `00-single-instance`
+Prepares a single compute instance and basic network components.
 
 #### Files
 
-- `providers.tf`  
+- `providers.tf`
   Terraform and OpenStack provider settings.
-- `variables.tf`  
-  Variable definitions received from outside.
-- `network.tf`  
-  Network components such as network / subnet / route.
-- `security.tf`  
+- `variables.tf`
+  Input variable definitions.
+- `network.tf`
+  Network, subnet, and router configuration.
+- `security.tf`
   Security Group access rules.
-- `keypair.tf`  
+- `keypair.tf`
   Key pair definitions for server access.
-- `instance.tf`  
+- `compute.tf`
   Compute instance definitions.
-- `.gitignore`  
+- `.gitignore`
   Prevents Terraform state and tfvars files from being included in git.
 
 ---
 
 ## PortvMind Credentials and Variables
 
-In this project, values for provider access are stored in the `terraform.tfvars` file.
+In this project, provider access values are stored in a `terraform.tfvars` file.
 
-> **Note:** The `terraform.tfvars` file does not come with the repo by default.  
-> After cloning the repo, **the user must create it with their own values.**  
-> Required resources are located in the "resources" folder.
+> **Note:** The `terraform.tfvars` file does not come with the repository by default.
+> After cloning the repository, **create it with your own values and do not commit it.**
+> Required resource IDs are documented in the `resources` folder.
 
 Example `terraform.tfvars`:
 
@@ -95,7 +93,7 @@ project_id          = "YOUR_PROJECT_ID"
 
 ### Important Notes
 
-- **Do not commit** the `terraform.tfvars` file to the repo.
+- **Do not commit** the `terraform.tfvars` file to the repository.
 - Use secret management for sensitive fields (such as `portvmind_password`).
 - Make sure `*.tfvars` is included in `.gitignore`.
 
@@ -113,10 +111,9 @@ terraform apply -var-file="terraform.tfvars"
 
 ---
 
+## Server Access (SSH) and Key Management
 
-## Server Access (SSH) and Key Management 
-
-> Note: If the template generates a `.pem` key, the file will be created in the project directory.  
+> Note: If the template generates a `.pem` key, the file will be created in the project directory.
 > (This may vary depending on the template.)
 
 ### 1) Set Key Permissions
@@ -181,11 +178,11 @@ You can get the `<PUBLIC_IP>` value from the Terraform outputs or the cloud cons
 
 ---
 
-## Destroy Warning 
+## Destroy Warning
 
-> **`terraform destroy` is a powerful command.**  
+> **`terraform destroy` is a powerful command.**
 > It permanently deletes all resources and cannot be undone.
-> In case of quota limitations, a destroy operation should be performed followed by an apply.  
+> If you need to recreate resources because of quota limitations, run `terraform destroy` before applying again.
 > Make sure you are certain before using it, and if possible, check with `terraform plan` first.
 
 To delete resources:

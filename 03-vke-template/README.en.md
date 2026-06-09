@@ -1,13 +1,13 @@
 # Template Guide (EN) — 03-vke-template
 
 ## Overview
-This document explains the steps for the **03-vke-template** template, which provisions a Kubernetes cluster on PortvMind **VKE (Kubernetes)**.
+This document explains how to use the **03-vke-template** template, which provisions a Kubernetes cluster on PortvMind **VKE**.
 
 This template is especially useful when you want to:
 
 - Create a Kubernetes cluster quickly on VKE
-- Do an end-to-end setup together with OpenStack networking components (network/subnet/router)
-- Restrict public Cluster API access using a controlled **CIDR allowlist**
+- Run an end-to-end setup with OpenStack networking components (network, subnet, and router)
+- Restrict public cluster API access using a controlled **CIDR allowlist**
 
 ---
 
@@ -15,9 +15,9 @@ This template is especially useful when you want to:
 
 | Requirement | Description |
 |------------|-------------|
-| PortvMind Account | An active vMind account |
+| PortvMind Account | An active PortvMind account |
 | Terraform | Terraform CLI must be installed |
-| Provider Access | PortvMind username / password  / project information |
+| Provider Access | PortvMind username, password, and project information |
 | Network IDs | External public network UUID and flavor UUIDs |
 
 ---
@@ -59,7 +59,7 @@ terraform version
 
 - `network.tf`
   - Private network + subnet for VKE
-  - Router and interface for NAT outbound access via the public network
+  - Router and interface for outbound NAT access via the public network
 
 - `main.tf`
   - Generate an SSH key using TLS provider
@@ -73,13 +73,13 @@ terraform version
 
 ---
 
-## Important Security Note (allowed_ips)
+## Important Security Note (`allowed_ips`)
 
 In this template, the cluster API access is set to `public` (`cluster_api_access = "public"`).
 
 Kubernetes API and node management are isolated behind strict Security Group rules, accessible only via a dedicated Bastion host or authorized VPN IPs.
 
-Therefore, it's strongly recommended to narrow down the `allowed_ips` variable to **your own IP/CIDR ranges**.
+Therefore, it is strongly recommended to narrow the `allowed_ips` variable to **your own IP/CIDR ranges**.
 
 > Since the default is `0.0.0.0/0`, if you don't override it, the cluster API will be exposed publicly.
 
@@ -93,8 +93,8 @@ The following blocks in `main.tf` are intended for **local testing**:
 
 ## terraform.tfvars example
 
-> **Note:** The `terraform.tfvars` file does not come with the repo by default.  
-> After cloning the repo, **create it with your own values and do not commit it.**  
+> **Note:** The `terraform.tfvars` file does not come with the repository by default.
+> After cloning the repo, **create it with your own values and do not commit it.**
 > Required resources are located in the "resources" folder.
 
 You can save the following as `terraform.tfvars`:
@@ -112,13 +112,13 @@ standard_flavor_id  = "YOUR_WORKER_FLAVOR_UUID"
 external_network_id = "YOUR_EXTERNAL_NETWORK_UUID"
 
 # Allowed CIDR ranges for Cluster API access
-# Example block range (VPN / office / static IP):
+# Example allowed ranges (VPN / office / static IP):
 allowed_ips = [
   "203.0.113.10/32",
   "198.51.100.0/24",
 ]
 
-# If you want to leave it empty (not recommended), example:
+# If you want to leave it empty (not recommended), use:
 # allowed_ips = [
 #
 # ]
@@ -149,7 +149,7 @@ terraform apply -var-file="terraform.tfvars"
 ## Destroy Warning (Important)
 
 > **`terraform destroy` is a powerful command.** It permanently deletes all resources and cannot be undone.
-> In case of quota limitations, a destroy operation should be performed followed by an apply.
+> If you need to recreate resources because of quota limitations, run `terraform destroy` before applying again.
 
 To delete resources:
 

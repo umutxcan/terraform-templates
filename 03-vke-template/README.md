@@ -1,12 +1,12 @@
-# Templates Rehberi (TR) — 03-vke-template 
+# Template Rehberi (TR) — 03-vke-template
 
-## Overview
-Bu doküman, PortvMind **VKE (Kubernetes)** servisi üzerinde bir cluster ayağa kaldırmak için hazırlanan **03-vke-template** şablonunun adımlarını açıklar.
+## Genel Bakış
+Bu doküman, PortvMind **VKE** servisi üzerinde bir Kubernetes cluster oluşturmak için hazırlanan **03-vke-template** şablonunun adımlarını açıklar.
 
 Bu şablon özellikle şu durumlar için uygundur:
 
 - VKE üzerinde hızlı bir Kubernetes cluster oluşturmak
-- OpenStack network bileşenleri (network/subnet/router) ile birlikte uçtan uca kurulum yapmak
+- OpenStack network bileşenleri (network, subnet ve router) ile birlikte uçtan uca kurulum yapmak
 - Cluster API erişimini (public) kontrollü bir şekilde **CIDR allowlist** ile sınırlamak
 
 ---
@@ -19,7 +19,7 @@ Bu şablon özellikle şu durumlar için uygundur:
 
 - `network.tf`
   - VKE için private network + subnet
-  - Public network’e NAT çıkışı için router ve interface
+  - Public network üzerinden outbound NAT erişimi için router ve interface
 
 - `main.tf`
   - TLS SSH key üretimi
@@ -33,13 +33,13 @@ Bu şablon özellikle şu durumlar için uygundur:
 
 ---
 
-## Prerequisites
+## Ön Koşullar
 
-| Requirement | Description |
+| Gereksinim | Açıklama |
 |------------|-------------|
-| PortvMind Account | Aktif bir vMind hesabı |
+| PortvMind Account | Aktif bir PortvMind hesabı |
 | Terraform | Terraform CLI kurulu olmalı |
-| Provider Access | PortvMind username / password / project bilgileri hazır olmalı |
+| Provider Access | PortvMind username, password ve project bilgileri hazır olmalı |
 | Network IDs | External public network UUID ve flavor UUID’leri hazır olmalı |
 
 ---
@@ -77,7 +77,7 @@ terraform version
 
 Bu şablonda cluster API erişimi `public` olarak açılıyor (`cluster_api_access = "public"`).
 
-Cluster'a doğrudan erişim dış dünyaya kapalıdır. Tüm yönetim süreçleri, bir Bastion sunucusu ve özel olarak izin verilmiş VPN ağ blokları üzerinden güvenli bir şekilde sağlanır.
+Cluster API erişimi public olarak yapılandırılmıştır; bu nedenle erişimi yalnızca güvenilir IP/CIDR aralıklarıyla sınırlamanız önerilir.
 
 Bu yüzden `allowed_ips` değişkenini **mutlaka kendi IP/CIDR aralıklarınıza** göre daraltmanız önerilir.
 
@@ -93,10 +93,9 @@ Bu yüzden `allowed_ips` değişkenini **mutlaka kendi IP/CIDR aralıklarınıza
 
 ## terraform.tfvars örneği
 
-> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
-> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle oluşturmalıdır.**  
-> Gerekli olan kaynaklar "resources" adlı klasör içinde bulunur.
-
+> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.
+> Repoyu klonladıktan sonra **kendi değerlerinizle oluşturun ve commit etmeyin.**
+> Gerekli resource ID bilgileri `resources` klasöründe dokümante edilmiştir.
 
 Aşağıdaki örneği `terraform.tfvars` olarak kaydedebilirsiniz:
 
@@ -104,7 +103,6 @@ Aşağıdaki örneği `terraform.tfvars` olarak kaydedebilirsiniz:
 portvmind_username  = "YOUR_USERNAME"
 portvmind_password  = "YOUR_PASSWORD"
 project_id          = "YOUR_PROJECT_ID"
-
 
 # Flavor UUIDs
 master_flavor_id    = "YOUR_MASTER_FLAVOR_UUID"
@@ -114,13 +112,13 @@ standard_flavor_id  = "YOUR_WORKER_FLAVOR_UUID"
 external_network_id = "YOUR_EXTERNAL_NETWORK_UUID"
 
 # Cluster API erişimi için izinli CIDR'ler
-# Örnek blok aralığı (VPN / ofis / sabit IP):
+# Örnek izinli aralıklar (VPN / ofis / sabit IP):
 allowed_ips = [
   "203.0.113.10/32",
   "198.51.100.0/24",
 ]
 
-# Boş bırakmak isterseniz (önerilmez), örnek:
+# Boş bırakmak isterseniz (önerilmez):
 # allowed_ips = [
 #
 # ]
@@ -140,18 +138,18 @@ terraform apply -var-file="terraform.tfvars"
 
 ---
 
-## Outputs
+## Çıktılar
 
 - `cluster_id` — oluşturulan cluster ID
 - `cluster_status` — cluster durumu
-- `cluster_kubeconfig` — **sensitive** kubeconfig çıktısı
+- `cluster_kubeconfig` — **hassas** kubeconfig çıktısı
 
 ---
 
 ## Destroy Uyarısı (Önemli)
 
 > **`terraform destroy` güçlü bir komuttur.** Tüm kaynakları kalıcı olarak siler ve geri alınamaz.
-> Kota ile sıkıntı olma durumunda destroy sonrasında apply yapılmalıdır.
+> Kaynakları kota nedeniyle yeniden oluşturmanız gerekiyorsa tekrar apply etmeden önce `terraform destroy` çalıştırın.
 
 Kaynakları silmek için:
 

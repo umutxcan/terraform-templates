@@ -1,23 +1,23 @@
-# Templates Rehberi (TR) — webserver-with-db
+# Template Rehberi (TR) — 01-webserver-with-db
 
-## Overview
-Bu doküman, **aynı network içinde** çalışan **web + database katmanlarını** ayrı subnet'lerde kuran *webserver-with-db* şablonunun adımlarını açıklar.
+## Genel Bakış
+Bu doküman, **aynı network içinde** çalışan **web ve database katmanlarını** ayrı subnetlerde kuran **01-webserver-with-db** şablonunun adımlarını açıklar.
 
 Bu şablon özellikle şu durumlar için uygundur:
 
 - Çok katmanlı mimari örneği kurmak istediğinizde
 - WordPress + DB gibi senaryoları test ederken
-- Subnet & SG segmentasyonu göstermek istediğinizde
+- Subnet ve security group segmentasyonu göstermek istediğinizde
 
 ---
 
-## Prerequisites
+## Ön Koşullar
 
-| Requirement | Description |
+| Gereksinim | Açıklama |
 |------------|-------------|
-| PortvMind Account | Aktif bir vMind hesabı |
+| PortvMind Account | Aktif bir PortvMind hesabı |
 | Terraform | Terraform CLI kurulmuş olmalı |
-| Provider Access | PortvMind username / tenant bilgileri hazır olmalı |
+| Provider Access | PortvMind username, password ve project bilgileri hazır olmalı |
 | Local CLI | Terraform komutlarını çalıştırabileceğiniz bir ortam |
 
 ---
@@ -46,28 +46,26 @@ choco install terraform -y
 terraform version
 ```
 
-
-
 ## İçerik
 
-### `webserver-with-db`
-Web ve DB instance'larının aynı VPC içinde fakat farklı subnet'lerde çalıştığı mimari örneği.
+### `01-webserver-with-db`
+Web ve DB instance kaynaklarının aynı network içinde fakat farklı subnetlerde çalıştığı mimari örneği.
 
 #### Dosyalar
 
-- `providers.tf`  
+- `providers.tf`
   Terraform ve OpenStack provider ayarları.
-- `variables.tf`  
-  Dışarıdan alınan değişken tanımları.
-- `network.tf`  
-  VPC / subnet / route yapılandırması.
-- `security.tf`  
-  Web ve DB katmanları için SG kuralları.
-- `keypair.tf`  
+- `variables.tf`
+  Input değişken tanımları.
+- `network.tf`
+  Network, subnet ve router yapılandırması.
+- `security.tf`
+  Web ve DB katmanları için security group kuralları.
+- `keypair.tf`
   Sunucu erişimi için key pair tanımları.
-- `compute.tf`  
+- `compute.tf`
   Web ve DB compute kaynakları.
-- `.gitignore`  
+- `.gitignore`
   Terraform state ve tfvars gibi dosyaların git'e dahil edilmemesi için.
 
 ---
@@ -76,9 +74,9 @@ Web ve DB instance'larının aynı VPC içinde fakat farklı subnet'lerde çalı
 
 Bu projede provider erişimi için değerler `terraform.tfvars` dosyasında tutulur.
 
-> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
-> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle oluşturmalıdır.**  
-> Gerekli olan kaynaklar "resources" adlı klasör içinde bulunur.
+> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.
+> Repoyu klonladıktan sonra **kendi değerlerinizle oluşturun ve commit etmeyin.**
+> Gerekli resource ID bilgileri `resources` klasöründe dokümante edilmiştir.
 
 Örnek `terraform.tfvars`:
 
@@ -111,10 +109,9 @@ terraform apply -var-file="terraform.tfvars"
 
 ---
 
+## Sunucuya Erişim (SSH) ve Anahtar Yönetimi
 
-## Sunucuya Erişim (SSH) ve Anahtar Yönetimi 
-
-> Not: Şablon `.pem` anahtarı üretiyorsa dosya proje dizininde oluşur.  
+> Not: Şablon `.pem` anahtarı üretiyorsa dosya proje dizininde oluşur.
 > (Şablona göre değişebilir.)
 
 ### 1) Anahtar İzinlerini Ayarlayın
@@ -134,7 +131,7 @@ icacls.exe <KEY_NAME>.pem /grant:r "$($env:username):(R)"
 
 ### 2) SSH Agent (Önerilir)
 
-SSH Agent kullanarak her seferinde `-i key.pem` yazmadan bağlanabilirsiniz.  
+SSH Agent kullanarak her seferinde `-i key.pem` yazmadan bağlanabilirsiniz.
 Bu özellikle **bastion üzerinden DB katmanına geçiş** senaryolarında süreci hızlandırır.
 
 **Linux / macOS**
@@ -151,7 +148,7 @@ ssh-add C:\path\to\<KEY_NAME>.pem
 ssh-add -l
 ```
 
-### 3) (Opsiyonel) Anahtar Dosyasını Sunucudan Bilgisayarına Çekme
+### 3) (Opsiyonel) Anahtar Dosyasını Sunucudan Bilgisayarınıza Çekme
 
 > Bu komutu **kendi bilgisayarınızın terminalinde (PowerShell/CMD)** çalıştırın.
 
@@ -187,13 +184,11 @@ ssh -i <KEY_NAME>.pem ubuntu@<BASTION_PUBLIC_IP>
 
 ---
 
-
-
 ## Destroy Uyarısı (Önemli)
 
-> **`terraform destroy` güçlü bir komuttur.**  
-> Tüm kaynakları kalıcı olarak siler ve geri alınamaz.  
-> Kota ile sıkıntı olma durumunda destroy sonrasında apply yapılmalıdır.
+> **`terraform destroy` güçlü bir komuttur.**
+> Tüm kaynakları kalıcı olarak siler ve geri alınamaz.
+> Kaynakları kota nedeniyle yeniden oluşturmanız gerekiyorsa tekrar apply etmeden önce `terraform destroy` çalıştırın.
 > Kullanırken **emin olun** ve mümkünse önce `terraform plan` ile kontrol edin.
 
 Kaynakları silmek için:
@@ -206,6 +201,6 @@ terraform destroy -var-file="terraform.tfvars"
 
 ## Mimari Notu
 
-- Web katmanı ve DB katmanı **ayrı subnet'lerde** çalışır.
-- SG kuralları ile web -> DB erişimi sadece gerekli port üzerinden açılır.
+- Web katmanı ve DB katmanı **ayrı subnetlerde** çalışır.
+- Security group kuralları ile web -> DB erişimi sadece gerekli port üzerinden açılır.
 - DB katmanı doğrudan public erişime açık tutulmaz (önerilen yaklaşım).

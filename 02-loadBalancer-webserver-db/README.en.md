@@ -1,7 +1,7 @@
-# Templates Guide (EN) — 02-loadBalancer-webserver-db
+# Template Guide (EN) — 02-loadBalancer-webserver-db
 
 ## Overview
-This document explains how to use the *02-loadBalancer-webserver-db* template, which deploys a multi-tier architecture with **Load Balancer (Octavia)**, **bastion**, **web servers**, and **database** tiers.
+This document explains how to use the **02-loadBalancer-webserver-db** template, which deploys a multi-tier architecture with **Load Balancer (Octavia)**, **bastion**, **web server**, and **database** tiers.
 
 This template is particularly suitable for:
 
@@ -15,9 +15,9 @@ This template is particularly suitable for:
 
 | Requirement | Description |
 |------------|-------------|
-| PortvMind Account | An active vMind account |
+| PortvMind Account | An active PortvMind account |
 | Terraform | Terraform CLI must be installed |
-| Provider Access | PortvMind username / tenant credentials must be ready |
+| Provider Access | PortvMind username, password, and project information |
 | Local CLI | An environment where you can run Terraform commands |
 
 ---
@@ -63,30 +63,30 @@ terraform version
 
 #### Files
 
-- `providers.tf`  
+- `providers.tf`
   Terraform and OpenStack provider settings.
-- `variables.tf`  
-  Variable definitions received from outside.
-- `network.tf`  
-  Network components such as VPC / subnet / router.
-- `security.tf`  
+- `variables.tf`
+  Input variable definitions.
+- `network.tf`
+  Network, subnet, and router configuration.
+- `security.tf`
   Security Group access rules.
-- `keypair.tf`  
+- `keypair.tf`
   Key pair definitions for server access.
-- `compute.tf`  
+- `compute.tf`
   Bastion, web, and DB instance definitions.
-- `loadbalancer.tf`  
+- `loadbalancer.tf`
   Octavia LB, listener, pool, health monitor, and members.
 
 ---
 
-## VMind Credentials and Variables
+## PortvMind Credentials and Variables
 
-In this project, values for provider access are stored in the `terraform.tfvars` file.
+In this project, provider access values are stored in a `terraform.tfvars` file.
 
-> **Note:** The `terraform.tfvars` file does not come with the repo by default.  
-> After cloning the repo, **the user must create it with their own values.**  
-> Required resources are located in the "resources" folder.
+> **Note:** The `terraform.tfvars` file does not come with the repository by default.
+> After cloning the repository, **create it with your own values and do not commit it.**
+> Required resource IDs are documented in the `resources` folder.
 
 Example `terraform.tfvars`:
 
@@ -101,7 +101,7 @@ external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
 
 ### Important Notes
 
-- **Do not commit** the `terraform.tfvars` file to the repo.
+- **Do not commit** the `terraform.tfvars` file to the repository.
 - Use secret management for sensitive fields (such as `portvmind_password`).
 - Make sure `*.tfvars` is included in `.gitignore`.
 
@@ -129,9 +129,9 @@ terraform apply -var-file="terraform.tfvars"
 
 ## Destroy Warning (Important)
 
-> **`terraform destroy` is a powerful command.**  
-> It permanently deletes all resources and cannot be undone.  
-> In case of quota limitations, a destroy operation should be performed followed by an apply.  
+> **`terraform destroy` is a powerful command.**
+> It permanently deletes all resources and cannot be undone.
+> If you need to recreate resources because of quota limitations, run `terraform destroy` before applying again.
 > Make sure you are certain before using it, and if possible, check with `terraform plan` first.
 
 To delete resources:
