@@ -103,17 +103,17 @@ Aşağıdaki örneği `terraform.tfvars` olarak kaydedebilirsiniz:
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
 portvmind_password  = "YOUR_PASSWORD"
-project_id      = "YOUR_PROJECT_ID"
+project_id          = "YOUR_PROJECT_ID"
 
 
 # Flavor UUIDs
-master_flavor_id   = "YOUR_MASTER_FLAVOR_UUID"
-standard_flavor_id = "YOUR_WORKER_FLAVOR_UUID"
+master_flavor_id    = "YOUR_MASTER_FLAVOR_UUID"
+standard_flavor_id  = "YOUR_WORKER_FLAVOR_UUID"
 
 # External/Public Network UUID
 external_network_id = "YOUR_EXTERNAL_NETWORK_UUID"
 
-# IMPORTANT: Cluster API erişimi için izinli CIDR'ler
+# Cluster API erişimi için izinli CIDR'ler
 # Örnek blok aralığı (VPN / ofis / sabit IP):
 allowed_ips = [
   "203.0.113.10/32",
