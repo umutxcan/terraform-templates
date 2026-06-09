@@ -78,7 +78,8 @@ An architecture example where web and DB instances run within the same VPC but i
 In this project, values for provider access are stored in the `terraform.tfvars` file.
 
 > **Note:** The `terraform.tfvars` file does not come with the repo by default.  
-> After cloning the repo, **the user must create it with their own values**.
+> After cloning the repo, **the user must create it with their own values.**  
+> Required resources are located in the "resources" folder.
 
 Example `terraform.tfvars`:
 
