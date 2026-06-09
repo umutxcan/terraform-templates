@@ -93,7 +93,10 @@ Bu yüzden `allowed_ips` değişkenini **mutlaka kendi IP/CIDR aralıklarınıza
 
 ## terraform.tfvars örneği
 
-> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez. Repoyu klonladıktan sonra kendi değerlerinizle oluşturun ve **commit etmeyin**.
+> **Not:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez.  
+> Repoyu klonladıktan sonra **kullanıcı kendi değerleriyle oluşturmalıdır.**  
+> Gerekli olan kaynaklar "resources" adlı klasör içinde bulunur.
+
 
 Aşağıdaki örneği `terraform.tfvars` olarak kaydedebilirsiniz:
 
