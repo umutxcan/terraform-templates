@@ -101,7 +101,7 @@ vmind_tenant_id     = "YOUR_TENANT_ID"
 ## Kullanım
 
 ```bash
-cd webserver-with-db
+cd 01-webserver-with-db
 terraform init
 terraform validate
 terraform plan -var-file="terraform.tfvars"
