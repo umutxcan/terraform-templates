@@ -4,7 +4,7 @@
 
 Bu doküman, PortvMind üzerinde Terraform kullanarak **tek bir compute instance** ve bu instance için gerekli **temel network bileşenlerini** oluşturma adımlarını açıklar.
 
-`00-single-instance` şablonu aşağıdaki kaynakları oluşturur:
+`00-single-instance` şablonu aşağıdaki kaynakları oluşturur ve Ek kaynaklar kısımında verilen Portvmind Github bağlantısından repoya ulaşılarak kullanılabilir:
 
 - Network
 
@@ -28,42 +28,6 @@ Bu şablon özellikle şu durumlar için uygundur:
 
 - Basit network + tek compute ihtiyacında
 
-
-
----
-
-## Mimari Özeti
-
-Bu şablonda compute instance, Terraform tarafından oluşturulan özel network içine yerleştirilir. Router üzerinden external network'e bağlanır ve sunucuya erişim için floating IP atanır.
-
-Özet akış:
-
-```text
-
-Internet
-
-|
-
-External Network
-
-|
-
-Router
-
-|
-
-Private Network / Subnet
-
-|
-
-Compute Instance
-
-|
-
-Floating IP ile SSH erişimi
-
-
-```
 
 ---
 
@@ -367,7 +331,7 @@ scp -i "C:\Keys\deneme12345.pem" "ubuntu@192.168.100.X:/home/ubuntu/vmind-terraf
 
 ---
 
-## Sık Karşılaşılan Durumlar
+## Karşılaşılabilecek Durumlar
 
 ### Terraform provider indirilemiyor
 
