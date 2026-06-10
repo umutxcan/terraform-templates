@@ -98,6 +98,8 @@ In this project, the required values for provider access are stored in the `terr
 
 > **Important:** The `terraform.tfvars` file does not come with the repository by default. After cloning the repository, create it with your own values and do not commit it.
 
+> **Resource ID reference:** If you need image, flavor, or external network ID values, see the combined resource guide: [`resources/Resources.md`](../resources/Resources.md).
+
 Example `terraform.tfvars`:
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
@@ -298,6 +300,7 @@ When the command asks for confirmation, carefully check the resources that will 
 
 ## Additional Resources
 
+- Resource ID Reference: [`resources/Resources.md`](../resources/Resources.md)
 - Terraform Documentation: https://developer.hashicorp.com/terraform/docs
 - OpenStack Provider Documentation: https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs
 - PortvMind GitHub Terraform Examples: https://github.com/vmindtech/portvmind-public-cloud-terraform-examples

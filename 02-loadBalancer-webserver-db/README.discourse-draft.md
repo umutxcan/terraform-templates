@@ -98,6 +98,8 @@ Bu projede provider erişimi için gerekli değerler `terraform.tfvars` dosyası
 
 > **Önemli:** `terraform.tfvars` dosyası repoda varsayılan olarak gelmez. Repoyu klonladıktan sonra kendi değerlerinizle oluşturun ve commit etmeyin.
 
+> **Resource ID referansı:** Image, flavor veya external network ID değerlerine ihtiyacınız varsa birleşik kaynak rehberine bakabilirsiniz: [`resources/Resources.md`](../resources/Resources.md).
+
 Örnek `terraform.tfvars`:
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
@@ -298,6 +300,7 @@ Komut onay istediğinde silinecek kaynakları dikkatlice kontrol edin.
 
 ## Ek Kaynaklar
 
+- Resource ID Reference: [`resources/Resources.md`](../resources/Resources.md)
 - Terraform Documentation: https://developer.hashicorp.com/terraform/docs
 - OpenStack Provider Documentation: https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs
 - PortvMind GitHub Terraform Examples: https://github.com/vmindtech/portvmind-public-cloud-terraform-examples
