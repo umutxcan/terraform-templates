@@ -29,8 +29,8 @@ resource "local_file" "private_key_file" {
 resource "portvmind_vke_cluster" "prod_cluster" {
   name               = var.cluster_name
   kubernetes_version = "v1.35.4+rke2r1" # Or "v1.35.2+rke2r1" as in the official template
-  
-  
+
+
   subnet_ids = [
     openstack_networking_subnet_v2.vke_subnet.id
   ]
@@ -42,20 +42,40 @@ resource "portvmind_vke_cluster" "prod_cluster" {
   #]
 
   allowed_cidrs = var.allowed_ips
-  
-  
-  
+
+
+
   master_instance_flavor_uuid = var.master_flavor_id
-  
-  # Defines the worker node group directly within the cluster
-  worker_node_group_min_size  = 1
-  worker_node_group_max_size  = 2
+
+  # Defines the default worker node group directly within the cluster
+  worker_node_group_min_size  = 2
+  worker_node_group_max_size  = 3
   worker_instance_flavor_uuid = var.standard_flavor_id
-  worker_disk_size_gb         = 40
-  
+  worker_disk_size_gb         = 50
+
   depends_on = [
     openstack_networking_router_interface_v2.vke_interface
   ]
+}
+
+# Optional: remove or comment out this whole block if you only need the default worker group.
+# This creates an additional worker node group after the VKE cluster is ready.
+resource "portvmind_vke_node_group" "workers_2" {
+  cluster_id       = portvmind_vke_cluster.prod_cluster.id
+  name             = "workers-2"
+  node_flavor_uuid = var.standard_flavor_id
+  node_disk_size   = 50
+  min_size         = 1
+  max_size         = 4
+
+  # optional
+  # node_group_labels = [
+  #   "workload=gpu",
+  #   "team=ml",
+  # ]
+  # node_group_taints = [
+  #   "dedicated=worker2:NoSchedule",
+  # ]
 }
 
 # --- OUTPUTS ---

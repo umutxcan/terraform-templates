@@ -12,7 +12,8 @@ Bu doküman, PortvMind **VKE** servisi üzerinde Terraform kullanarak bir Kubern
 - SSH key pair
 - Lokal `.pem` anahtar dosyası
 - PortvMind VKE Kubernetes cluster
-- Worker node group yapılandırması
+- Varsayılan worker node group yapılandırması
+- Opsiyonel ek `workers-2` node group yapılandırması
 - Cluster çıktıları
 
 Bu şablon özellikle şu durumlar için uygundur:
@@ -177,7 +178,7 @@ Bu adım, Terraform dosyalarında temel syntax ve yapılandırma hatası olup ol
 terraform plan -var-file="terraform.tfvars"
 ```
 
-`terraform plan` çıktısında network, subnet, router, keypair ve VKE cluster kaynaklarını kontrol edin. Özellikle `allowed_ips` değerlerinin doğru olduğundan emin olun.
+`terraform plan` çıktısında network, subnet, router, keypair, VKE cluster ve ek worker node group kaynaklarını kontrol edin. Özellikle `allowed_ips` değerlerinin doğru olduğundan emin olun.
 
 ### 5. Kaynakları Oluşturun
 ```bash
@@ -199,7 +200,8 @@ Kurulum tamamlandığında PortvMind üzerinde aşağıdaki kaynaklar oluşmuş 
 - VKE cluster SSH key pair
 - Lokal `vke-cluster-key.pem` dosyası
 - Kubernetes VKE cluster
-- 1 ile 2 worker node arasında ölçeklenebilen worker node group
+- 2 ile 3 worker node arasında ölçeklenebilen, 50 GB diskli varsayılan worker node group
+- `main.tf` içinde bırakılırsa 1 ile 4 worker node arasında ölçeklenebilen, 50 GB diskli ek `workers-2` node group
 
 ---
 
@@ -218,6 +220,18 @@ Terraform apply tamamlandıktan sonra aşağıdaki çıktılar kullanılabilir:
 ---
 
 ## Karşılaşılabilecek Durumlar
+
+### Cluster ready olmadan Error durumuna geçiyor
+
+`Cluster did not become ready` hatası `portvmind_vke_cluster` kaynağı oluşturulurken gelir. Bu durumda Terraform ek `workers-2` node group kaynağına henüz geçmemiştir.
+
+Kontrol listesi:
+
+- `master_flavor_id` ve `standard_flavor_id` değerleri VKE için kullanılabilir flavor UUID değerleri mi?
+- Project quota değerleri master ve worker node sayısı için yeterli mi?
+- `external_network_id` doğru public/external network UUID değeri mi?
+- Router ve subnet kaynakları PortvMind panelinde sağlıklı görünüyor mu?
+- PortvMind panelinde cluster detayında daha açıklayıcı bir hata mesajı var mı?
 
 ### Cluster API herkese açık görünüyor
 

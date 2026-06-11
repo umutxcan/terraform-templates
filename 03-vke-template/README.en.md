@@ -12,7 +12,8 @@ The `03-vke-template` template creates the following resources. You can access t
 - SSH key pair
 - Local `.pem` key file
 - PortvMind VKE Kubernetes cluster
-- Worker node group configuration
+- Default worker node group configuration
+- Optional additional `workers-2` node group configuration
 - Cluster outputs
 
 This template is especially suitable for:
@@ -177,7 +178,7 @@ This step checks whether there are basic syntax and configuration errors in the 
 terraform plan -var-file="terraform.tfvars"
 ```
 
-In the `terraform plan` output, check the network, subnet, router, keypair, and VKE cluster resources. Pay special attention to whether the `allowed_ips` values are correct.
+In the `terraform plan` output, check the network, subnet, router, keypair, VKE cluster, and additional worker node group resources. Pay special attention to whether the `allowed_ips` values are correct.
 
 ### 5. Create the Resources
 ```bash
@@ -199,7 +200,8 @@ When the setup is complete, the following resources should have been created on 
 - VKE cluster SSH key pair
 - Local `vke-cluster-key.pem` file
 - Kubernetes VKE cluster
-- Worker node group that can scale between 1 and 2 worker nodes
+- Default worker node group with 50 GB disks that can scale between 2 and 3 worker nodes
+- Additional `workers-2` node group with 50 GB disks that can scale between 1 and 4 worker nodes if its block is kept in `main.tf`
 
 ---
 
@@ -218,6 +220,18 @@ After Terraform apply is complete, the following outputs are available:
 ---
 
 ## Possible Issues
+
+### Cluster enters Error before becoming ready
+
+The `Cluster did not become ready` error happens while Terraform is creating the `portvmind_vke_cluster` resource. At that point, Terraform has not reached the optional `workers-2` node group resource yet.
+
+Checklist:
+
+- Are `master_flavor_id` and `standard_flavor_id` valid flavor UUID values for VKE?
+- Does the project quota allow the requested master and worker node count?
+- Is `external_network_id` the correct public/external network UUID?
+- Do the router and subnet resources look healthy in the PortvMind panel?
+- Does the cluster detail page in the PortvMind panel show a more specific error message?
 
 ### Cluster API appears open to everyone
 
