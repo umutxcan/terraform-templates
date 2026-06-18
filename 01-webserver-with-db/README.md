@@ -119,7 +119,7 @@ project_id                              = "YOUR_PROJECT_ID"
 
 Sadece bir authentication yöntemi kullanın. Application credential kullanıyorsanız `portvmind_username` ve `portvmind_password` değerlerini set etmeyin.
 
-> **Application credential notu:** PortvMind UI içinde application credential oluştururken bu template için gerekli rolleri seçin. Workflow veya bağlı servisler gerektiriyorsa **Allow creating other application credentials with this credential** seçeneğini de işaretleyin. Gerekli roller/checkbox eksikse Terraform authentication başarılı olsa bile kaynak oluşturma aşamasında hata alınabilir.
+> **Application credential notu:** PortvMind UI içinde application credential oluştururken bu template için gerekli rolleri seçin. **Allow creating other application credentials with this credential** checkbox'ı bu template için gerekli değildir; yalnızca kendi workflow'unuz bu credential ile ek application credential oluşturmayı gerektiriyorsa işaretleyin.
 
 
 Değişken açıklamaları:

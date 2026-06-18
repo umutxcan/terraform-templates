@@ -136,7 +136,7 @@ external_network_id = "a35a0723-9600-4473-b29b-222b50e0fe10"
 
 Use exactly one authentication method for these templates.
 
-> **Application credential note:** When creating the application credential in the PortvMind UI, select the roles required by the template. Also enable **Allow creating other application credentials with this credential** if your workflow or dependent services require it.
+> **Application credential note:** For `00-single-instance`, `01-webserver-with-db`, and `02-loadBalancer-webserver-db`, select the roles required by the template. The **Allow creating other application credentials with this credential** checkbox is not required for these templates; enable it only if your own workflow needs it.
 
 ### For `03-vke-template`
 
@@ -174,7 +174,7 @@ allowed_ips = [
 
 Use exactly one authentication method for `03-vke-template`.
 
-> **Application credential note:** When creating the application credential in the PortvMind UI, select the roles required by this template, such as `member`, `creator`, and `load-balancer_admin`. Also enable **Allow creating other application credentials with this credential** so VKE cluster creation can complete.
+> **Application credential note:** For `03-vke-template`, select the roles required by this template, such as `member`, `creator`, and `load-balancer_admin`. The **Allow creating other application credentials with this credential** checkbox is required so VKE cluster creation can complete.
 
 > **Security note:** Do not commit `terraform.tfvars` files. They can contain passwords, application credential secrets, project IDs, network IDs, and other sensitive values.
 

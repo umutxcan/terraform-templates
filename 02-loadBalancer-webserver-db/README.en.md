@@ -122,7 +122,7 @@ external_network_id                     = "YOUR_EXTERNAL_NETWORK_ID"
 
 Use exactly one authentication method. If you use application credentials, do not set `portvmind_username` or `portvmind_password`.
 
-> **Application credential note:** When creating the application credential in the PortvMind UI, select the roles required for this template. Also enable **Allow creating other application credentials with this credential** if your workflow or dependent services require it. Without the required roles/checkbox, Terraform may authenticate successfully but fail while creating resources.
+> **Application credential note:** When creating the application credential in the PortvMind UI, select the roles required for this template. The **Allow creating other application credentials with this credential** checkbox is not required for this template; enable it only if your own workflow needs this credential to create additional application credentials.
 
 
 Variable descriptions:
