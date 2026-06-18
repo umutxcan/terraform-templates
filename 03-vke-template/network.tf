@@ -1,6 +1,6 @@
 # Fetches the external public network data
 data "openstack_networking_network_v2" "public_network" {
-  network_id = var.external_network_id 
+  network_id = var.external_network_id
 }
 
 # Creates the main virtual network for VKE

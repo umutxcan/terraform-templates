@@ -84,7 +84,7 @@ In this project, the required values for provider access are stored in the `terr
 
 > **Resource ID reference:** If you need image, flavor, or external network ID values, see the combined resource guide: [`RESOURCES.md`](../RESOURCES.md).
 
-Example `terraform.tfvars`:
+Example `terraform.tfvars` with username/password authentication:
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
 portvmind_password  = "YOUR_PASSWORD"
@@ -94,18 +94,35 @@ external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
 project_id          = "YOUR_PROJECT_ID"
 ```
 
+Example `terraform.tfvars` with application credential authentication:
+```hcl
+portvmind_application_credential_id     = "YOUR_APPLICATION_CREDENTIAL_ID"
+portvmind_application_credential_secret = "YOUR_APPLICATION_CREDENTIAL_SECRET"
+ubuntu_image_id                         = "YOUR_IMAGE_ID"
+standard_flavor_id                      = "YOUR_FLAVOR_ID"
+external_network_id                     = "YOUR_EXTERNAL_NETWORK_ID"
+project_id                              = "YOUR_PROJECT_ID"
+```
+
+Use exactly one authentication method. If you use application credentials, do not set `portvmind_username` or `portvmind_password`.
+
+> **Application credential note:** When creating the application credential in the PortvMind UI, select the roles required for this template. Also enable **Allow creating other application credentials with this credential** if your workflow or dependent services require it. Without the required roles/checkbox, Terraform may authenticate successfully but fail while creating resources.
+
+
 Variable descriptions:
 
 | Variable | Description |
 | --- | --- |
-| `portvmind_username` | Your PortvMind username |
-| `portvmind_password` | Your PortvMind user password |
+| `portvmind_username` | Your PortvMind username, only for username/password authentication |
+| `portvmind_password` | Your PortvMind user password, only for username/password authentication |
+| `portvmind_application_credential_id` | Application credential ID, only for application credential authentication |
+| `portvmind_application_credential_secret` | Application credential secret, only for application credential authentication |
 | `ubuntu_image_id` | The Ubuntu image ID value to use |
 | `standard_flavor_id` | The flavor ID value to use for the instance |
 | `external_network_id` | The external network ID value for floating IP and external access |
 | `project_id` | The project ID value where the resources will be created |
 
-> **Security note:** Do not share sensitive fields such as `portvmind_password` in a public repository. Make sure the `terraform.tfvars` file is included in `.gitignore`.
+> **Security note:** Do not share sensitive fields such as `portvmind_password` or `portvmind_application_credential_secret` in a public repository. Make sure the `terraform.tfvars` file is included in `.gitignore`.
 
 ---
 

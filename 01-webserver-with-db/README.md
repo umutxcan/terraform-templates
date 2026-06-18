@@ -97,7 +97,7 @@ Bu projede provider erişimi için gerekli değerler `terraform.tfvars` dosyası
 
 > **Resource ID referansı:** Image, flavor veya external network ID değerlerine ihtiyacınız varsa birleşik kaynak rehberine bakabilirsiniz: [`RESOURCES.md`](../RESOURCES.md).
 
-Örnek `terraform.tfvars`:
+Username/password authentication ile örnek `terraform.tfvars`:
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
 portvmind_password  = "YOUR_PASSWORD"
@@ -107,18 +107,35 @@ external_network_id = "YOUR_EXTERNAL_NETWORK_ID"
 project_id          = "YOUR_PROJECT_ID"
 ```
 
+Application credential authentication ile örnek `terraform.tfvars`:
+```hcl
+portvmind_application_credential_id     = "YOUR_APPLICATION_CREDENTIAL_ID"
+portvmind_application_credential_secret = "YOUR_APPLICATION_CREDENTIAL_SECRET"
+ubuntu_image_id                         = "YOUR_IMAGE_ID"
+standard_flavor_id                      = "YOUR_FLAVOR_ID"
+external_network_id                     = "YOUR_EXTERNAL_NETWORK_ID"
+project_id                              = "YOUR_PROJECT_ID"
+```
+
+Sadece bir authentication yöntemi kullanın. Application credential kullanıyorsanız `portvmind_username` ve `portvmind_password` değerlerini set etmeyin.
+
+> **Application credential notu:** PortvMind UI içinde application credential oluştururken bu template için gerekli rolleri seçin. Workflow veya bağlı servisler gerektiriyorsa **Allow creating other application credentials with this credential** seçeneğini de işaretleyin. Gerekli roller/checkbox eksikse Terraform authentication başarılı olsa bile kaynak oluşturma aşamasında hata alınabilir.
+
+
 Değişken açıklamaları:
 
 | Değişken | Açıklama |
 | --- | --- |
-| `portvmind_username` | PortvMind kullanıcı adınız |
-| `portvmind_password` | PortvMind kullanıcı parolanız |
+| `portvmind_username` | Sadece username/password authentication için PortvMind kullanıcı adınız |
+| `portvmind_password` | Sadece username/password authentication için PortvMind kullanıcı parolanız |
+| `portvmind_application_credential_id` | Sadece application credential authentication için application credential ID |
+| `portvmind_application_credential_secret` | Sadece application credential authentication için application credential secret |
 | `ubuntu_image_id` | Kullanılacak Ubuntu image ID değeri |
 | `standard_flavor_id` | Instance'lar için kullanılacak flavor ID değeri |
 | `external_network_id` | Floating IP ve dış erişim için external network ID değeri |
 | `project_id` | Kaynakların oluşturulacağı project ID değeri |
 
-> **Güvenlik notu:** `portvmind_password` gibi hassas alanları public repo içinde paylaşmayın. `terraform.tfvars` dosyasının `.gitignore` içinde olduğundan emin olun.
+> **Güvenlik notu:** `portvmind_password` veya `portvmind_application_credential_secret` gibi hassas alanları public repo içinde paylaşmayın. `terraform.tfvars` dosyasının `.gitignore` içinde olduğundan emin olun.
 
 ---
 

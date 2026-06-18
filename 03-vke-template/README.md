@@ -115,7 +115,7 @@ Bu projede provider erişimi ve cluster yapılandırması için gerekli değerle
 
 > **Resource ID referansı:** Image, flavor veya external network ID değerlerine ihtiyacınız varsa birleşik kaynak rehberine bakabilirsiniz: [`RESOURCES.md`](../RESOURCES.md).
 
-Örnek `terraform.tfvars`:
+Username/password authentication ile örnek `terraform.tfvars`:
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
 portvmind_password  = "YOUR_PASSWORD"
@@ -135,12 +135,38 @@ allowed_ips = [
 ]
 ```
 
+Application credential authentication ile örnek `terraform.tfvars`:
+```hcl
+portvmind_application_credential_id     = "YOUR_APPLICATION_CREDENTIAL_ID"
+portvmind_application_credential_secret = "YOUR_APPLICATION_CREDENTIAL_SECRET"
+project_id                              = "YOUR_PROJECT_ID"
+
+# Flavor UUIDs
+master_flavor_id    = "YOUR_MASTER_FLAVOR_UUID"
+standard_flavor_id  = "YOUR_WORKER_FLAVOR_UUID"
+
+# External/Public Network UUID
+external_network_id = "YOUR_EXTERNAL_NETWORK_UUID"
+
+# Cluster API erişimi için izinli CIDR'ler
+allowed_ips = [
+  "203.0.113.10/32",
+  "198.51.100.0/24",
+]
+```
+
+Sadece bir authentication yöntemi kullanın. Application credential kullanıyorsanız `portvmind_username` ve `portvmind_password` değerlerini set etmeyin.
+
+> **Application credential notu:** PortvMind UI içinde application credential oluştururken bu template için gerekli rolleri seçin. Örneğin `member`, `creator` ve `load-balancer_admin`. Ayrıca **Allow creating other application credentials with this credential** seçeneğini işaretleyin. Bu checkbox seçili değilse credential OpenStack kaynaklarını oluşturabilse bile VKE cluster oluşturma aşamasında hata alınabilir.
+
 Değişken açıklamaları:
 
 | Değişken | Açıklama |
 | --- | --- |
-| `portvmind_username` | PortvMind kullanıcı adınız |
-| `portvmind_password` | PortvMind kullanıcı parolanız |
+| `portvmind_username` | Sadece username/password authentication için PortvMind kullanıcı adınız |
+| `portvmind_password` | Sadece username/password authentication için PortvMind kullanıcı parolanız |
+| `portvmind_application_credential_id` | Sadece application credential authentication için application credential ID |
+| `portvmind_application_credential_secret` | Sadece application credential authentication için application credential secret |
 | `project_id` | Kaynakların oluşturulacağı project ID değeri |
 | `cluster_name` | Oluşturulacak VKE cluster adı; varsayılan değer `dev-vke-cluster` |
 | `master_flavor_id` | Master node için kullanılacak flavor UUID değeri |
@@ -148,7 +174,7 @@ Değişken açıklamaları:
 | `external_network_id` | External/public network UUID değeri |
 | `allowed_ips` | Cluster API erişimine izin verilecek CIDR listesi |
 
-> **Güvenlik notu:** `portvmind_password`, `project_id`, `external_network_id` ve kubeconfig gibi hassas bilgileri public repo içinde paylaşmayın.
+> **Güvenlik notu:** `portvmind_password`, `portvmind_application_credential_secret`, `project_id`, `external_network_id` ve kubeconfig gibi hassas bilgileri public repo içinde paylaşmayın.
 
 ---
 

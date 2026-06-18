@@ -110,6 +110,8 @@ standard_flavor_id = "73dee111-ff30-4837-b3c1-9284c422485e"
 
 ### For `00-single-instance`, `01-webserver-with-db`, and `02-loadBalancer-webserver-db`
 
+Username/password authentication:
+
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
 portvmind_password  = "YOUR_PASSWORD"
@@ -120,7 +122,25 @@ standard_flavor_id  = "73dee111-ff30-4837-b3c1-9284c422485e"
 external_network_id = "a35a0723-9600-4473-b29b-222b50e0fe10"
 ```
 
+Application credential authentication:
+
+```hcl
+portvmind_application_credential_id     = "YOUR_APPLICATION_CREDENTIAL_ID"
+portvmind_application_credential_secret = "YOUR_APPLICATION_CREDENTIAL_SECRET"
+project_id                              = "YOUR_PROJECT_ID"
+
+ubuntu_image_id     = "d4086da9-366a-4482-a93c-d18e065fcd8b"
+standard_flavor_id  = "73dee111-ff30-4837-b3c1-9284c422485e"
+external_network_id = "a35a0723-9600-4473-b29b-222b50e0fe10"
+```
+
+Use exactly one authentication method for these templates.
+
+> **Application credential note:** When creating the application credential in the PortvMind UI, select the roles required by the template. Also enable **Allow creating other application credentials with this credential** if your workflow or dependent services require it.
+
 ### For `03-vke-template`
+
+Username/password authentication:
 
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
@@ -136,7 +156,27 @@ allowed_ips = [
 ]
 ```
 
-> **Security note:** Do not commit `terraform.tfvars` files. They can contain passwords, project IDs, network IDs, and other sensitive values.
+Application credential authentication:
+
+```hcl
+portvmind_application_credential_id     = "YOUR_APPLICATION_CREDENTIAL_ID"
+portvmind_application_credential_secret = "YOUR_APPLICATION_CREDENTIAL_SECRET"
+project_id                              = "YOUR_PROJECT_ID"
+
+master_flavor_id    = "73dee111-ff30-4837-b3c1-9284c422485e"
+standard_flavor_id  = "73dee111-ff30-4837-b3c1-9284c422485e"
+external_network_id = "a35a0723-9600-4473-b29b-222b50e0fe10"
+
+allowed_ips = [
+  "YOUR_PUBLIC_IP/32"
+]
+```
+
+Use exactly one authentication method for `03-vke-template`.
+
+> **Application credential note:** When creating the application credential in the PortvMind UI, select the roles required by this template, such as `member`, `creator`, and `load-balancer_admin`. Also enable **Allow creating other application credentials with this credential** so VKE cluster creation can complete.
+
+> **Security note:** Do not commit `terraform.tfvars` files. They can contain passwords, application credential secrets, project IDs, network IDs, and other sensitive values.
 
 ---
 

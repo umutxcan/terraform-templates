@@ -115,7 +115,7 @@ In this project, the required values for provider access and cluster configurati
 
 > **Resource ID reference:** If you need image, flavor, or external network ID values, see the combined resource guide: [`RESOURCES.md`](../RESOURCES.md).
 
-Example `terraform.tfvars`:
+Example `terraform.tfvars` with username/password authentication:
 ```hcl
 portvmind_username  = "YOUR_USERNAME"
 portvmind_password  = "YOUR_PASSWORD"
@@ -135,12 +135,38 @@ allowed_ips = [
 ]
 ```
 
+Example `terraform.tfvars` with application credential authentication:
+```hcl
+portvmind_application_credential_id     = "YOUR_APPLICATION_CREDENTIAL_ID"
+portvmind_application_credential_secret = "YOUR_APPLICATION_CREDENTIAL_SECRET"
+project_id                              = "YOUR_PROJECT_ID"
+
+# Flavor UUIDs
+master_flavor_id    = "YOUR_MASTER_FLAVOR_UUID"
+standard_flavor_id  = "YOUR_WORKER_FLAVOR_UUID"
+
+# External/Public Network UUID
+external_network_id = "YOUR_EXTERNAL_NETWORK_UUID"
+
+# Allowed CIDR ranges for Cluster API access
+allowed_ips = [
+  "203.0.113.10/32",
+  "198.51.100.0/24",
+]
+```
+
+Use exactly one authentication method. If you use application credentials, do not set `portvmind_username` or `portvmind_password`.
+
+> **Application credential note:** When creating the application credential in the PortvMind UI, select the roles required for this template, such as `member`, `creator`, and `load-balancer_admin`. Also enable **Allow creating other application credentials with this credential**. Without this checkbox, VKE cluster creation can fail even if the credential can create OpenStack resources.
+
 Variable descriptions:
 
 | Variable | Description |
 | --- | --- |
-| `portvmind_username` | Your PortvMind username |
-| `portvmind_password` | Your PortvMind user password |
+| `portvmind_username` | Your PortvMind username, only for username/password authentication |
+| `portvmind_password` | Your PortvMind user password, only for username/password authentication |
+| `portvmind_application_credential_id` | Application credential ID, only for application credential authentication |
+| `portvmind_application_credential_secret` | Application credential secret, only for application credential authentication |
 | `project_id` | The project ID value where the resources will be created |
 | `cluster_name` | Name of the VKE cluster to create; default is `dev-vke-cluster` |
 | `master_flavor_id` | Flavor UUID value for the master node |
@@ -148,7 +174,7 @@ Variable descriptions:
 | `external_network_id` | External/public network UUID value |
 | `allowed_ips` | CIDR list allowed to access the cluster API |
 
-> **Security note:** Do not share sensitive information such as `portvmind_password`, `project_id`, `external_network_id`, or kubeconfig in a public repository.
+> **Security note:** Do not share sensitive information such as `portvmind_password`, `portvmind_application_credential_secret`, `project_id`, `external_network_id`, or kubeconfig in a public repository.
 
 ---
 
